@@ -1,0 +1,60 @@
+I'm a newbie and my process for creating a program is to use an outline that described what  I want and how I think I would structure the program.  Here is my latest intial outline.  Any comments about it or any discussion of how you get from concept to actually writing code would be great.
+
+
+This program is being developed to allow me to Hide/Unhide shares on my local Network
+
+Here is what I've used in the past via a Power Shell script
+
+# Function to hide a network share
+function Hide-NetworkShare {
+    param (
+        [string]$shareName,
+        [string]$folderPath
+    )
+    $shareNameHidden = $shareName + "$"
+    Remove-SmbShare -Name $shareName -Force -ErrorAction SilentlyContinue
+    New-SmbShare -Name $shareNameHidden -Path $folderPath -FullAccess Everyone
+    Write-Host "Network share '$shareName' is now hidden as '$shareNameHidden'."
+}
+
+# Function to unhide a network share
+function Unhide-NetworkShare {
+    param (
+        [string]$shareNameHidden,
+        [string]$folderPath
+    )
+    $shareName = $shareNameHidden.TrimEnd('$')
+    Remove-SmbShare -Name $shareNameHidden -Force -ErrorAction SilentlyContinue
+    New-SmbShare -Name $shareName -Path $folderPath -FullAccess Everyone
+    Write-Host "Network share '$shareNameHidden' is now unhidden as '$shareName'."
+}
+
+I want to set this up in VB .Net using Windows Forms or C# .Net using Windows Forms
+------------------------------------------------------------------------------------------------------------------------
+- power Shell is a console app - I want a complied window application
+- the password, Share Drives, and Share Names are hard coded into the script 
+- I want an app that will let me assign these items dynamically inside the compiled app
+
+Setting this up in VB as Simple Solution
+------------------------------------------------------------------------------------------------------------------------
+Use the My.Settings Object to dynamically store and retrieve my properties
+- create a start up form that runs the first time the program is run
+Forms - StartupForm, PswdForm, HideUnHideForm
+OR
+- create a setup program that populates the My.Settings Object during the program installation
+Setup Program Forms - SetupForm
+Apllication Forms - PswdForm, HideUnHideForm
+
+Setting this up in VB as Enhanced Solution
+------------------------------------------------------------------------------------------------------------------------
+Same as Simple Solution Except
+- originally only store the Password and trivial data like styles and colors in the My.Settings Object
+- utilze the OpenFileDialog class to allow users to browse for and or create a name and path for the desired share
+- store the ShareName and Share Path in the My.Settings object
+OR
+- create a form that incorporates the OpenFiileDialog and allows the user to Hide & Unhide the selected Drive/Directory from within that form
+- leave the shares as is when the program ends OR default all shares to hidden or visible at program end
+
+
+
+
