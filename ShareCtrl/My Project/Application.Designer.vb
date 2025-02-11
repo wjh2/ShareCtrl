@@ -26,13 +26,14 @@ Namespace My
             Me.ShutDownStyle = Global.Microsoft.VisualBasic.ApplicationServices.ShutdownMode.AfterMainFormCloses
         End Sub
 
-    '<Global.System.Diagnostics.DebuggerStepThroughAttribute()>
-    'Protected Overrides Sub OnCreateMainForm()
-    '  Me.MainForm = Form1()
-    'End Sub
+    <Global.System.Diagnostics.DebuggerStepThroughAttribute()>
+    Protected Overrides Sub OnCreateMainForm()
+      Me.MainForm = New MainForm()
+    End Sub
 
     'Private Function Form1() As Form
     ' Throw New NotImplementedException()
     'End Function
+
   End Class
 End Namespace

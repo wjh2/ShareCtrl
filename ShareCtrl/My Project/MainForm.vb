@@ -1,4 +1,9 @@
 ﻿Public Class MainForm
+	Sub New()
+		' This call is required by the designer.
+		InitializeComponent()
+		' Add any initialization after the InitializeComponent() call.
+	End Sub
 	Private Sub MainForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 		' Call the Main method in MainModule
 		MainModule.Main()
@@ -8,6 +13,8 @@
 		Dim settingsMenuItem As New ToolStripMenuItem("Settings")
 		AddHandler settingsMenuItem.Click, AddressOf ShowSetupForm
 		MenuStrip1.Items.Add(settingsMenuItem)
+
+
 	End Sub
 
 	Private Sub ShowSetupForm(sender As Object, e As EventArgs)
