@@ -1,25 +1,66 @@
-﻿Public Class MainForm
+﻿' Start the main application
+Module Program
+	Sub Main()
+		Application.EnableVisualStyles()
+		Application.SetCompatibleTextRenderingDefault(False)
+		Dim mainForm As New MainForm()
+		Application.Run(mainForm)
+	End Sub
+End Module
+Public Class MainForm
 	Sub New()
 		' This call is required by the designer.
 		InitializeComponent()
 		' Add any initialization after the InitializeComponent() call.
 	End Sub
+
 	Private Sub MainForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-		' Call the Main method in MainModule
-		MainModule.Main()
+		Me.Visible = False ' Set the form to invisible
 
-		' Add a menu item or button to access the setup form
-		'Maybe I dont need a ToolStrip Menu Here - Just design the startup form to get the data and store it
-		Dim settingsMenuItem As New ToolStripMenuItem("Settings")
-		AddHandler settingsMenuItem.Click, AddressOf ShowSetupForm
-		MenuStrip1.Items.Add(settingsMenuItem)
+		If My.Settings.IsSetupCompleted Then
+			' Set program parameters based on data in Settings.settings file
+			' ...
 
+			' Launch PswdForm.vb
+			Dim pswdForm As New PswdForm()
+			pswdForm.ShowDialog()
+		Else
+			Do
+				' Launch SetupForm to populate Settings.settings
+				If SetupForm.ShowDialog() = DialogResult.OK Then
+					' Save the settings and mark the setup as completed
+					My.Settings.IsSetupCompleted = True
+					My.Settings.Save()
+				Else
+					' Exit the application if the user cancels the setup
+					Environment.Exit(0)
+				End If
+			Loop Until My.Settings.IsSetupCompleted
 
-	End Sub
+			' Launch SetupForm to populate Settings.settings
+		End If
 
-	Private Sub ShowSetupForm(sender As Object, e As EventArgs)
-		' Show the setup form to update settings
-		Dim setupForm As New SetupForm()
-		setupForm.ShowDialog()
+		' Close the invisible MainForm
+		Me.Close()
 	End Sub
 End Class
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

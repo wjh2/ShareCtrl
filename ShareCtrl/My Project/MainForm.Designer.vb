@@ -24,10 +24,10 @@ Partial Class MainForm
 	Private Sub InitializeComponent()
 		MenuStrip1 = New MenuStrip()
 		FileToolStripMenuItem = New ToolStripMenuItem()
-		EditToolStripMenuItem = New ToolStripMenuItem()
 		NewToolStripMenuItem = New ToolStripMenuItem()
 		OpenToolStripMenuItem = New ToolStripMenuItem()
 		SaveToolStripMenuItem = New ToolStripMenuItem()
+		EditToolStripMenuItem = New ToolStripMenuItem()
 		FindToolStripMenuItem = New ToolStripMenuItem()
 		MenuStrip1.SuspendLayout()
 		SuspendLayout()
@@ -48,13 +48,6 @@ Partial Class MainForm
 		FileToolStripMenuItem.Size = New Size(53, 29)
 		FileToolStripMenuItem.Text = "File"
 		' 
-		' EditToolStripMenuItem
-		' 
-		EditToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {FindToolStripMenuItem})
-		EditToolStripMenuItem.Name = "EditToolStripMenuItem"
-		EditToolStripMenuItem.Size = New Size(56, 29)
-		EditToolStripMenuItem.Text = "Edit"
-		' 
 		' NewToolStripMenuItem
 		' 
 		NewToolStripMenuItem.Name = "NewToolStripMenuItem"
@@ -73,6 +66,13 @@ Partial Class MainForm
 		SaveToolStripMenuItem.Size = New Size(180, 30)
 		SaveToolStripMenuItem.Text = "&Save"
 		' 
+		' EditToolStripMenuItem
+		' 
+		EditToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {FindToolStripMenuItem})
+		EditToolStripMenuItem.Name = "EditToolStripMenuItem"
+		EditToolStripMenuItem.Size = New Size(56, 29)
+		EditToolStripMenuItem.Text = "Edit"
+		' 
 		' FindToolStripMenuItem
 		' 
 		FindToolStripMenuItem.Name = "FindToolStripMenuItem"
@@ -85,7 +85,6 @@ Partial Class MainForm
 		AutoScaleMode = AutoScaleMode.Font
 		ClientSize = New Size(792, 278)
 		Controls.Add(MenuStrip1)
-		MainMenuStrip = MenuStrip1
 		Name = "MainForm"
 		Text = "MainForm"
 		MenuStrip1.ResumeLayout(False)

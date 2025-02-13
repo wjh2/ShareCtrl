@@ -57,4 +57,58 @@ OR
 
 
 
+Meta AI conversion of power sherll script
+
+
+Imports System
+Imports System.IO
+Imports System.Management
+
+Module NetworkShareManager
+    Sub UnhideNetworkShare(shareNameHidden As String, folderPath As String)
+        Dim shareName As String = shareNameHidden.TrimEnd("$"c)
+
+        ' Remove existing hidden share
+        Try
+            RemoveSmbShare(shareNameHidden)
+        Catch ex As Exception
+            ' Silently continue on error
+        End Try
+
+        ' Create new unhidden share
+        CreateSmbShare(shareName, folderPath)
+
+        Console.WriteLine($"Network share '{shareNameHidden}' is now unhidden as '{shareName}'.")
+    End Sub
+
+    Private Sub RemoveSmbShare(shareName As String)
+        Dim scope As New ManagementScope("\\localhost\root\cimv2")
+        Dim query As New ObjectQuery("SELECT * FROM Win32_Share WHERE Name = '" + shareName + "'")
+        Dim searcher As New ManagementObjectSearcher(scope, query)
+
+        For Each share As ManagementObject In searcher.Get()
+            share.InvokeMethod("Delete", Nothing)
+        Next
+    End Sub
+
+    Private Sub CreateSmbShare(shareName As String, folderPath As String)
+        Dim scope As New ManagementScope("\\localhost\root\cimv2")
+        Dim path As New ManagementPath("Win32_Share")
+        Dim options As New ObjectGetOptions
+        Dim classInstance As New ManagementClass(scope, path, options)
+
+        Dim inParams As ManagementBaseObject = classInstance.GetMethodParameters("Create")
+        inParams("Name") = shareName
+        inParams("Path") = folderPath
+        inParams("Type") = 0 ' Disk Drive
+        inParams("Access") = "Everyone:Full"
+
+        Dim outParams As ManagementBaseObject = classInstance.InvokeMethod("Create", inParams, Nothing)
+    End Sub
+End Module
+
+
+This VB.NET code defines a module NetworkShareManager with a method UnhideNetworkShare that takes two parameters: shareNameHidden and folderPath. The method removes an existing hidden share and creates a new unhidden share.
+Please note that you need to add a reference to the System.Management namespace in your VB.NET project to use the ManagementObjectSearcher and ManagementClass classes.
+Also, this code requires administrative privileges to manage network shares. Make sure to run your application with elevated permissions.
 

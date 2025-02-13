@@ -31,22 +31,22 @@ Partial Class SetupForm
 		' lblSetPswd
 		' 
 		lblSetPswd.AutoSize = True
-		lblSetPswd.Location = New Point(22, 37)
+		lblSetPswd.Location = New Point(14, 136)
 		lblSetPswd.Name = "lblSetPswd"
-		lblSetPswd.Size = New Size(354, 25)
+		lblSetPswd.Size = New Size(170, 25)
 		lblSetPswd.TabIndex = 0
-		lblSetPswd.Text = "Establish a Password for this Application:"
+		lblSetPswd.Text = "Create a Password:"
 		' 
 		' txtSetPswd
 		' 
-		txtSetPswd.Location = New Point(391, 34)
+		txtSetPswd.Location = New Point(190, 132)
 		txtSetPswd.Name = "txtSetPswd"
 		txtSetPswd.Size = New Size(353, 33)
 		txtSetPswd.TabIndex = 1
 		' 
 		' btnSave
 		' 
-		btnSave.Location = New Point(628, 108)
+		btnSave.Location = New Point(628, 74)
 		btnSave.Name = "btnSave"
 		btnSave.Size = New Size(116, 39)
 		btnSave.TabIndex = 2
@@ -55,7 +55,7 @@ Partial Class SetupForm
 		' 
 		' btnCancel
 		' 
-		btnCancel.Location = New Point(391, 108)
+		btnCancel.Location = New Point(628, 27)
 		btnCancel.Name = "btnCancel"
 		btnCancel.Size = New Size(116, 39)
 		btnCancel.TabIndex = 3
