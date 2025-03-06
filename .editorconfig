@@ -1,0 +1,15 @@
+# .editorconfig file
+root = true
+
+[*.vb]
+# Naming rules for controls using Hungarian Notation
+dotnet_naming_rule.controls_should_use_hungarian_notation.severity = none
+dotnet_naming_rule.controls_should_use_hungarian_notation.symbols = controls
+dotnet_naming_rule.controls_should_use_hungarian_notation.style = hungarian_notation
+
+dotnet_naming_symbols.controls.applicable_kinds = field, property
+dotnet_naming_symbols.controls.applicable_accessibilities = public, private, protected, internal
+dotnet_naming_symbols.controls.required_modifiers = none
+
+dotnet_naming_style.hungarian_notation.capitalization = camel_case
+dotnet_naming_style.hungarian_notation.required_prefix = btn, txt, lbl, cbo, chk, lst, rdo, grp, pnl, pic, tab, tmr, trk, tvw, wmp, wbr

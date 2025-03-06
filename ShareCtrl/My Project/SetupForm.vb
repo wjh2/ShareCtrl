@@ -1,48 +1,80 @@
-﻿Imports System.Reflection.Emit
+﻿Imports System.Windows.Forms
+Imports System.Windows.Forms.VisualStyles
+
 Public Class SetupForm
   Public Sub New()
     InitializeComponent()
+    ' Manually add some common visual styles
+    cboxColorScheme.Items.Add("Aero")
+    cboxColorScheme.Items.Add("Luna")
+    cboxColorScheme.Items.Add("Classic")
+    ' Set the selected theme to the current theme
+    Dim currentTheme As String = GetCurrentVisualStyle()
+    cboxColorScheme.SelectedIndex = cboxColorScheme.FindStringExact(currentTheme)
   End Sub
-  Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
-		' Collect the initial settings from user input
-		My.Settings.SomeSetting = txtSetPswd.Text
 
-		' Calls the ValidateSettings Function that returns True or False
-		If ValidateSettings() Then
+  Private Sub cboxColorScheme_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboxColorScheme.SelectedIndexChanged
+    ' Get the selected theme
+    Dim selectedTheme As String = cboxColorScheme.SelectedItem.ToString()
+    ' Apply the selected theme (optional, for immediate preview)
+    ' ApplyVisualStyle(selectedTheme)
+  End Sub
+
+  Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
+    ' Validate the user input before updating the settings
+    If ValidatePassword(txtSetPswd.Text) Then
+      ' Collect the initial settings from user input
+      My.Settings.thePassword = txtSetPswd.Text
+      My.Settings.IsSetupCompleted = True
+      Dim selectedTheme As String = cboxColorScheme.SelectedItem.ToString()
+      My.Settings.ColorScheme = selectedTheme
       My.Settings.Save()
+      ' Log the updated settings
+      Debug.WriteLine("thePassword: " & My.Settings.thePassword)
+      Debug.WriteLine("IsSetupCompleted: " & My.Settings.IsSetupCompleted)
+
       Me.DialogResult = DialogResult.OK
     Else
-      MessageBox.Show("Please enter valid settings.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+      MessageBox.Show("Please enter a valid password.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
     End If
   End Sub
-
-  Private Function ValidateSettings() As Boolean
-    Dim password As String = My.Settings.SomeSetting
-    ' Check if the password is at least 8 characters long
-    If password.Length < 8 Then
-      Return False
-    End If
-		' Check if the password contains at least one digit
-		If Not password.Any(AddressOf Char.IsDigit) Then
-			Return False
-		End If
-		'Additional pswd checks can be added here
-
-		' Check if the password contains at least one uppercase letter
-		'If Not password.Any(AddressOf Char.IsUpper) Then
-		'Return False
-		'End If
-		' Check if the password contains at least one lowercase letter
-		'If Not password.Any(AddressOf Char.IsLower) Then
-		'Return False
-		'End If
-
-		' All checks passed
-		Return True
-  End Function
 
   Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
     Me.DialogResult = DialogResult.Cancel
   End Sub
-End Class
 
+  Private Function GetCurrentVisualStyle() As String
+    Select Case Application.VisualStyleState
+      Case VisualStyleState.ClientAndNonClientAreasEnabled
+        Return "Aero"
+      Case VisualStyleState.ClientAreaEnabled
+        Return "Luna"
+      Case VisualStyleState.NonClientAreaEnabled
+        Return "Classic"
+      Case Else
+        Return "Unknown"
+    End Select
+  End Function
+
+  Private Function ValidatePassword(password As String) As Boolean
+    ' Check if the password is at least 8 characters long
+    If password.Length < 8 Then
+      Return False
+    End If
+    ' Check if the password contains at least one digit
+    If Not password.Any(AddressOf Char.IsDigit) Then
+      Return False
+    End If
+    ' Additional password checks can be added here
+    ' Check if the password contains at least one uppercase letter
+    'If Not password.Any(AddressOf Char.IsUpper) Then
+    'Return False
+    'End If
+    'Check If the password contains at least one lowercase letter
+    If Not password.Any(AddressOf Char.IsLower) Then
+      Return False
+    End If
+    ' All checks passed
+    Return True
+  End Function
+End Class

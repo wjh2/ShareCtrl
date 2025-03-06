@@ -37,7 +37,7 @@ Partial Class MainForm
 		MenuStrip1.Items.AddRange(New ToolStripItem() {FileToolStripMenuItem, EditToolStripMenuItem})
 		MenuStrip1.Location = New Point(0, 0)
 		MenuStrip1.Name = "MenuStrip1"
-		MenuStrip1.Size = New Size(792, 33)
+		MenuStrip1.Size = New Size(277, 33)
 		MenuStrip1.TabIndex = 0
 		MenuStrip1.Text = "MenuStrip1"
 		' 
@@ -83,8 +83,9 @@ Partial Class MainForm
 		' 
 		AutoScaleDimensions = New SizeF(11F, 25F)
 		AutoScaleMode = AutoScaleMode.Font
-		ClientSize = New Size(792, 278)
+		ClientSize = New Size(277, 238)
 		Controls.Add(MenuStrip1)
+		ForeColor = SystemColors.ControlText
 		Name = "MainForm"
 		Text = "MainForm"
 		MenuStrip1.ResumeLayout(False)

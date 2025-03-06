@@ -26,12 +26,15 @@ Partial Class SetupForm
 		txtSetPswd = New TextBox()
 		btnSave = New Button()
 		btnCancel = New Button()
+		cboxColorScheme = New ComboBox()
+		lblSetColor = New Label()
+		lblWelcome = New Label()
 		SuspendLayout()
 		' 
 		' lblSetPswd
 		' 
 		lblSetPswd.AutoSize = True
-		lblSetPswd.Location = New Point(14, 136)
+		lblSetPswd.Location = New Point(50, 76)
 		lblSetPswd.Name = "lblSetPswd"
 		lblSetPswd.Size = New Size(170, 25)
 		lblSetPswd.TabIndex = 0
@@ -39,14 +42,15 @@ Partial Class SetupForm
 		' 
 		' txtSetPswd
 		' 
-		txtSetPswd.Location = New Point(190, 132)
+		txtSetPswd.Location = New Point(226, 73)
 		txtSetPswd.Name = "txtSetPswd"
+		txtSetPswd.PasswordChar = "*"c
 		txtSetPswd.Size = New Size(353, 33)
 		txtSetPswd.TabIndex = 1
 		' 
 		' btnSave
 		' 
-		btnSave.Location = New Point(628, 74)
+		btnSave.Location = New Point(585, 115)
 		btnSave.Name = "btnSave"
 		btnSave.Size = New Size(116, 39)
 		btnSave.TabIndex = 2
@@ -55,18 +59,50 @@ Partial Class SetupForm
 		' 
 		' btnCancel
 		' 
-		btnCancel.Location = New Point(628, 27)
+		btnCancel.Location = New Point(449, 115)
 		btnCancel.Name = "btnCancel"
 		btnCancel.Size = New Size(116, 39)
 		btnCancel.TabIndex = 3
 		btnCancel.Text = "CANCEL"
 		btnCancel.UseVisualStyleBackColor = True
 		' 
+		' cboxColorScheme
+		' 
+		cboxColorScheme.FormattingEnabled = True
+		cboxColorScheme.Location = New Point(226, 119)
+		cboxColorScheme.Name = "cboxColorScheme"
+		cboxColorScheme.Size = New Size(199, 33)
+		cboxColorScheme.TabIndex = 4
+		' 
+		' lblSetColor
+		' 
+		lblSetColor.AutoSize = True
+		lblSetColor.Location = New Point(17, 122)
+		lblSetColor.Name = "lblSetColor"
+		lblSetColor.Size = New Size(203, 25)
+		lblSetColor.TabIndex = 5
+		lblSetColor.Text = "Select a Color Scheme:"
+		' 
+		' lblWelcome
+		' 
+		lblWelcome.AutoSize = True
+		lblWelcome.Font = New Font("Segoe UI", 14F, FontStyle.Italic, GraphicsUnit.Point, CByte(0))
+		lblWelcome.Location = New Point(17, 20)
+		lblWelcome.Name = "lblWelcome"
+		lblWelcome.Size = New Size(702, 25)
+		lblWelcome.TabIndex = 6
+		lblWelcome.Text = "Welcome to ShareCtrl. Please select a new user password and pick your color scheme"
+		' 
 		' SetupForm
 		' 
-		AutoScaleDimensions = New SizeF(11.0F, 25.0F)
+		AcceptButton = btnSave
+		AutoScaleDimensions = New SizeF(11F, 25F)
 		AutoScaleMode = AutoScaleMode.Font
-		ClientSize = New Size(777, 177)
+		CancelButton = btnCancel
+		ClientSize = New Size(738, 177)
+		Controls.Add(lblWelcome)
+		Controls.Add(lblSetColor)
+		Controls.Add(cboxColorScheme)
 		Controls.Add(btnCancel)
 		Controls.Add(btnSave)
 		Controls.Add(txtSetPswd)
@@ -82,6 +118,9 @@ Partial Class SetupForm
 	Friend WithEvents txtSetPswd As System.Windows.Forms.TextBox
 	Friend WithEvents btnSave As System.Windows.Forms.Button
 	Friend WithEvents btnCancel As System.Windows.Forms.Button
+	Friend WithEvents cboxColorScheme As ComboBox
+	Friend WithEvents lblSetColor As Label
+	Friend WithEvents lblWelcome As Label
 End Class
 
 

@@ -69,12 +69,48 @@ Namespace My
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("test item")>  _
-        Public Property SomeSetting() As String
+        Public Property thePassword() As String
             Get
-                Return CType(Me("SomeSetting"),String)
+                Return CType(Me("thePassword"),String)
             End Get
             Set
-                Me("SomeSetting") = value
+                Me("thePassword") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("White")>  _
+        Public Property BackgroundColor() As Global.System.Drawing.Color
+            Get
+                Return CType(Me("BackgroundColor"),Global.System.Drawing.Color)
+            End Get
+            Set
+                Me("BackgroundColor") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Black")>  _
+        Public Property TextColor() As Global.System.Drawing.Color
+            Get
+                Return CType(Me("TextColor"),Global.System.Drawing.Color)
+            End Get
+            Set
+                Me("TextColor") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property ColorScheme() As String
+            Get
+                Return CType(Me("ColorScheme"),String)
+            End Get
+            Set
+                Me("ColorScheme") = value
             End Set
         End Property
     End Class
