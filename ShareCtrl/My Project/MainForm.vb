@@ -14,29 +14,26 @@ Public Class MainForm
 	Private DialogResults As Object
 
 	Private Sub MainForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-		Me.Visible = False ' Set the form to invisible
-		' Log the value of IsSetupCompleted
-		'Debug.WriteLine("IsSetupCompleted: " & My.Settings.IsSetupCompleted)
+		'Me.Visible = False ' Set the form to invisible
+		'Log the value of IsSetupCompleted
 		If My.Settings.IsSetupCompleted Then
-			' Set program parameters based on data in Settings.settings file
+			'Set program parameters based on data in Settings.settings file
 			SetProgramParameters()
 		Else
-			' Launch SetupForm to populate Settings.settings
-			Do
-				If SetupForm.ShowDialog() = DialogResult.OK Then
-					' Save the settings and mark the setup as completed
-					My.Settings.IsSetupCompleted = True
-					' Apply the saved visual style after setup is completed
-					Dim savedTheme As String = My.Settings.ColorScheme
-					If Not String.IsNullOrEmpty(savedTheme) Then
-						ApplyVisualStyle(savedTheme)
-					End If
-					My.Settings.Save()
-				Else
-					' Exit the application if the user cancels the setup
-					Environment.Exit(0)
+		 'Launch SetupForm to populate Settings.settings
+			If SetupForm.ShowDialog() = DialogResult.OK Then
+				'Save the settings and mark the setup as completed
+				My.Settings.IsSetupCompleted = True
+				'Apply the saved visual style after setup is completed
+				Dim savedTheme As String = My.Settings.ColorScheme
+				If Not String.IsNullOrEmpty(savedTheme) Then
+					ApplyVisualStyle(savedTheme)
 				End If
-			Loop Until My.Settings.IsSetupCompleted
+				My.Settings.Save()
+			Else
+				'Exit the application if the user cancels the setup
+				Environment.Exit(0)
+			End If
 			SetProgramParameters()
 		End If
 		' Close the invisible MainForm

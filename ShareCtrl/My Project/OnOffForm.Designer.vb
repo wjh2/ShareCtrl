@@ -71,6 +71,7 @@ Partial Class OnOffForm
 		' 
 		' btnAccept
 		' 
+		btnAccept.DialogResult = DialogResult.OK
 		btnAccept.Location = New Point(12, 399)
 		btnAccept.Name = "btnAccept"
 		btnAccept.Size = New Size(79, 34)
@@ -80,6 +81,7 @@ Partial Class OnOffForm
 		' 
 		' btnCancel
 		' 
+		btnCancel.DialogResult = DialogResult.Cancel
 		btnCancel.Location = New Point(119, 399)
 		btnCancel.Name = "btnCancel"
 		btnCancel.Size = New Size(79, 34)
@@ -99,8 +101,10 @@ Partial Class OnOffForm
 		' 
 		' OnOffForm
 		' 
+		AcceptButton = btnAccept
 		AutoScaleMode = AutoScaleMode.None
 		AutoSizeMode = AutoSizeMode.GrowAndShrink
+		CancelButton = btnCancel
 		ClientSize = New Size(212, 486)
 		Controls.Add(ckboxShowShares)
 		Controls.Add(btnCancel)
@@ -109,7 +113,7 @@ Partial Class OnOffForm
 		Controls.Add(NumericUpDown1)
 		Controls.Add(PBoxOff)
 		Controls.Add(PBoxOn)
-		FormBorderStyle = FormBorderStyle.FixedToolWindow
+		FormBorderStyle = FormBorderStyle.None
 		Name = "OnOffForm"
 		CType(PBoxOff, ComponentModel.ISupportInitialize).EndInit()
 		CType(PBoxOn, ComponentModel.ISupportInitialize).EndInit()

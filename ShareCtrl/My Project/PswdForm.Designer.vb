@@ -65,8 +65,10 @@ Partial Class PswdForm
 		' 
 		' PswdForm
 		' 
+		AcceptButton = btnOk
 		AutoScaleDimensions = New SizeF(11F, 25F)
 		AutoScaleMode = AutoScaleMode.Font
+		CancelButton = btnCancel
 		ClientSize = New Size(579, 139)
 		Controls.Add(btnOk)
 		Controls.Add(btnCancel)
