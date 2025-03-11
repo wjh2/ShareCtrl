@@ -2,7 +2,7 @@
 Imports System.Windows.Forms.VisualStyles
 
 Public Class SetupForm
-  Public Sub New()
+  Sub New()
     InitializeComponent()
     ' Manually add some common visual styles
     cboxColorScheme.Items.Add("Aero")
@@ -17,7 +17,7 @@ Public Class SetupForm
     ' Get the selected theme
     Dim selectedTheme As String = cboxColorScheme.SelectedItem.ToString()
     ' Apply the selected theme (optional, for immediate preview)
-    ' ApplyVisualStyle(selectedTheme)
+    ApplyVisualStyle(selectedTheme)
   End Sub
 
   Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
@@ -28,11 +28,8 @@ Public Class SetupForm
       My.Settings.IsSetupCompleted = True
       Dim selectedTheme As String = cboxColorScheme.SelectedItem.ToString()
       My.Settings.ColorScheme = selectedTheme
-      My.Settings.Save()
       ' Log the updated settings
-      Debug.WriteLine("thePassword: " & My.Settings.thePassword)
-      Debug.WriteLine("IsSetupCompleted: " & My.Settings.IsSetupCompleted)
-
+      My.Settings.Save()
       Me.DialogResult = DialogResult.OK
     Else
       MessageBox.Show("Please enter a valid password.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
@@ -42,8 +39,19 @@ Public Class SetupForm
   Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
     Me.DialogResult = DialogResult.Cancel
   End Sub
-
-  Private Function GetCurrentVisualStyle() As String
+  Private Shared Sub ApplyVisualStyle(theme As String)
+    Select Case theme
+      Case "Aero"
+        Application.VisualStyleState = VisualStyleState.ClientAndNonClientAreasEnabled
+      Case "Luna"
+        Application.VisualStyleState = VisualStyleState.ClientAreaEnabled
+      Case "Classic"
+        Application.VisualStyleState = VisualStyleState.NonClientAreaEnabled
+    End Select
+    ' Refresh the application to apply the new visual style
+    Application.DoEvents()
+  End Sub
+  Private Shared Function GetCurrentVisualStyle() As String
     Select Case Application.VisualStyleState
       Case VisualStyleState.ClientAndNonClientAreasEnabled
         Return "Aero"
@@ -56,7 +64,7 @@ Public Class SetupForm
     End Select
   End Function
 
-  Private Function ValidatePassword(password As String) As Boolean
+  Private Shared Function ValidatePassword(password As String) As Boolean
     ' Check if the password is at least 8 characters long
     If password.Length < 8 Then
       Return False

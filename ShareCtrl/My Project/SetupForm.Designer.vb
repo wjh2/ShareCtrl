@@ -77,11 +77,11 @@ Partial Class SetupForm
 		' lblSetColor
 		' 
 		lblSetColor.AutoSize = True
-		lblSetColor.Location = New Point(17, 122)
+		lblSetColor.Location = New Point(77, 122)
 		lblSetColor.Name = "lblSetColor"
-		lblSetColor.Size = New Size(203, 25)
+		lblSetColor.Size = New Size(143, 25)
 		lblSetColor.TabIndex = 5
-		lblSetColor.Text = "Select a Color Scheme:"
+		lblSetColor.Text = "Select a Theme:"
 		' 
 		' lblWelcome
 		' 
@@ -89,9 +89,9 @@ Partial Class SetupForm
 		lblWelcome.Font = New Font("Segoe UI", 14F, FontStyle.Italic, GraphicsUnit.Point, CByte(0))
 		lblWelcome.Location = New Point(17, 20)
 		lblWelcome.Name = "lblWelcome"
-		lblWelcome.Size = New Size(702, 25)
+		lblWelcome.Size = New Size(697, 25)
 		lblWelcome.TabIndex = 6
-		lblWelcome.Text = "Welcome to ShareCtrl. Please select a new user password and pick your color scheme"
+		lblWelcome.Text = "Welcome to ShareCtrl. Please select a new user password and pick a windows theme"
 		' 
 		' SetupForm
 		' 

@@ -1,19 +1,24 @@
 ﻿Imports System.Windows.Forms
 Imports System.Windows.Forms.VisualStyles.VisualStyleElement.Button
 Public Class OnOffForm
-	Public Shared myState As Boolean
+	Private myState As Boolean
+	
 	Public Sub New()
 		' This call is required by the designer.
 		InitializeComponent()
 	End Sub
-
-	Private Function GetCkboxShowShares() As System.Windows.Forms.CheckBox
-		Return ckboxShowShares
-	End Function
+ ' Property to encapsulate the myState variable
+		Public Property State As Boolean
+				Get
+						Return myState
+				End Get
+				Set(value As Boolean)
+						myState = value
+				End Set
+		End Property
 	' This form displays the on and off picture
 	' The initial state: off picture should be visible and the on picture should be hidden
 	Private Sub OnOffForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
 		' Set the initial visibility of the picture boxes
 		PBoxOn.Visible = False
 		PBoxOn.BringToFront()
@@ -31,11 +36,9 @@ Public Class OnOffForm
 		lblCurrentState.Text = "Shares are Off and Hidden"
 		ckboxShowShares.Checked = False
 		myState = False
-
 	End Sub
 
 	Private Sub PBoxOn_Click(sender As Object, e As EventArgs) Handles PBoxOn.Click
-
 		' Toggle visibility
 		PBoxOn.Visible = False
 		PBoxOff.Visible = True
@@ -59,13 +62,29 @@ Public Class OnOffForm
 		Else
 			MessageBox.Show("The CheckBox is unchecked. My State is " & myState.ToString())
 		End If
-
 	End Sub
 
+	Private Sub btnBrowse_Click(sender As Object, e As EventArgs) Handles btnBrowse.Click
+		Dim folderDlg As New FolderBrowserDialog()
+		folderDlg.ShowNewFolderButton = True
+		If folderDlg.ShowDialog() = DialogResult.OK Then
+			txtDir.Text = folderDlg.SelectedPath
+			'Dim root As Environment.SpecialFolder = folderDlg.RootFolder	
+		End If
+	End Sub
+
+	Private Function GetCkboxShowShares() As System.Windows.Forms.CheckBox
+		Return ckboxShowShares
+	End Function
+	
 	Private Sub lblCurrentState_Click(sender As Object, e As EventArgs) Handles lblCurrentState.Click
 
 	End Sub
-End Class
+
+	Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles txtDir.TextChanged
+
+	End Sub
+End Class	
 
 
 
