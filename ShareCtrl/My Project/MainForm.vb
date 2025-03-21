@@ -1,69 +1,94 @@
 ﻿' Start the main application
 Imports System.Windows.Forms
-Imports System.Windows.Forms.AxHost
 Imports System.Windows.Forms.VisualStyles
+Imports System.Diagnostics
+Imports System.Management
+Imports System.IO
+Imports System.Runtime.InteropServices
+'Imports System.Windows.Forms.AxHost
+
 Module Program ' this Module was added to get around the visual studio req for the startup object to be a form
-	Sub Main() ' this is now the startup object eventhough in visual studio the startup object is MainForm
-	' Enable visual styles and set compatible text rendering default
+	' Declare the external function here
+	Declare Auto Function NetShareAdd Lib "netapi32.dll" ( _
+		ByVal servername As String, _
+		ByVal level As Integer, _
+		ByVal buf As IntPtr, _
+		ByRef parm_err As Integer) As Integer
+
+	' Define the SHARE_INFO_2 structure
+	<StructLayout(LayoutKind.Sequential, CharSet:=CharSet.Unicode)>
+	Public Structure SHARE_INFO_2
+		Public shi2_netname As String
+		Public shi2_type As Integer
+		Public shi2_remark As String
+		Public shi2_permissions As Integer
+		Public shi2_max_uses As Integer
+		Public shi2_current_uses As Integer
+		Public shi2_path As String
+		Public shi2_passwd As String
+	End Structure
+
+	Public Sub Main() ' this is now the startup object 
+		' Enable visual styles and set compatible text rendering default
 		Application.EnableVisualStyles()
 		Application.SetCompatibleTextRenderingDefault(False)
-		' Run the project
+		If My.Settings.SharePaths Is Nothing Then
+			My.Settings.SharePaths = New Specialized.StringCollection()
+		End If
 		RunProject()
 	End Sub
-
-Private Sub RunProject()
-	' Log the value of IsSetupCompleted
-	If My.Settings.IsSetupCompleted Then
-		' Set program parameters based on data in Settings.settings file
-		SetProgramParameters()
-	Else
-		' Launch SetupForm to populate Settings.settings
-		If SetupForm.ShowDialog() = DialogResult.OK Then
-			'Save the settings and mark the setup as completed
-			My.Settings.IsSetupCompleted = True
-			'Apply the saved visual style after setup is completed
-			Dim savedTheme As String = My.Settings.ColorScheme
-			If Not String.IsNullOrEmpty(savedTheme) Then
-				ApplyVisualStyle(savedTheme)
-			End If
-			My.Settings.Save()
+	Private Sub RunProject()
+		' Check the value of IsSetupCompleted
+		If My.Settings.IsSetupCompleted Then
+			' Set program parameters based on data in Settings.settings file
+			SetProgramParameters()
 		Else
-			'Exit the application if the user cancels the setup
-			'Environment.Exit(0)
+			Debug.WriteLine("IsSetupCompleted is False.")
+			' Launch SetupForm to populate Settings.settings
+			If SetupForm.ShowDialog() = DialogResult.OK Then '================== Setup Form ==================================> 
+				'Save the settings and mark the setup as completed
+				My.Settings.IsSetupCompleted = True
+				'Apply the saved visual style after setup is completed
+				Dim savedTheme As String = My.Settings.ColorScheme
+				If Not String.IsNullOrEmpty(savedTheme) Then
+					ApplyVisualStyle(savedTheme)
+				End If
+				'My.Settings.Save()<----------------------------------------Verify if this is needed
+			Else
+				' Exit the application if the user cancels the setup
+				Environment.Exit(0)
+			End If
+			SetProgramParameters()
 		End If
-		SetProgramParameters()
-	End If
-	SetupShares.ShowDialog()
-	Dim currentState As Boolean = OnOffForm.State
-	MessageBox.Show("The CheckBox is unknown. My State is " & currentState.ToString())
-	' * use a file and dir view to show existing or create new shares	
-	' * are there existing shares - what state are they in
-	' * Add the file and dir view to the OnOffForm - shrink the switch pictures and use to change the state
-	' * Might be nice to have a version that only shows the switch - for if you only want to change the state
-	' - Part of the form hidden, check for exist shares and show all if no existing shares
-	' - need to add a way to request the whole form if required when switch only version shows
-	' Launch the OnOffForm to Add & Remove Shares and change the state of the shares
-	' OnOffForm.ShowDialog()
-	' Close the MainForm
+		Dim currentState As Boolean = OnOffForm.State '<--------------This is the End!!
+		MessageBox.Show("The CheckBox is unknown. My State is " & currentState.ToString() & " and here is where the program will proceed to the next step")
 	End Sub
-
-
-Private Sub SetProgramParameters()
-		' Set program parameters based on data in Settings.settings file
+	Private Sub SetProgramParameters()
 		' Apply the saved visual style
 		Dim savedTheme As String = My.Settings.ColorScheme
 		If Not String.IsNullOrEmpty(savedTheme) Then
 			ApplyVisualStyle(savedTheme)
 		End If
-		' Get the user password from the PswdForm.vb
+		' Get the user password using the PswdForm.vb
 		Dim pswdForm As New PswdForm()
-		If pswdForm.ShowDialog() = DialogResult.OK Then
-			' Continue program flow		
-			'OnOffForm.ShowDialog()
+		If pswdForm.ShowDialog() = DialogResult.OK Then '================== Password Form ==================================> 
+			If My.Settings.SharePaths.Count > 0 Then
+				If My.Settings.AutoMode = True Then
+					OnOffForm.ShowDialog() '================== OnOffForm ==================================>
+				Else
+					SetupShares.ShowDialog() '================== SetupShares Form ==================================> 
+				End If
+			Else
+				' If there are no existing shares, then show the SetopShares form
+				SetupShares.ShowDialog() '================== To SetupShares Form ==================================> 
+			End If
 		Else
-		' Proceed to Me.Close if the user cancels the password form
-			Exit sub
+			' if the user cancels the password form
+			Exit Sub
 		End If
+		MessageBox.Show("Thats All Folks! The share were updated")
+		' Exit the application 
+		Environment.Exit(0)
 	End Sub
 	Private Sub ApplyVisualStyle(theme As String) 'for now Duplicate sub - Also in the SetupForm 
 		Select Case theme
@@ -77,17 +102,84 @@ Private Sub SetProgramParameters()
 		' Refresh the application to apply the new visual style
 		Application.DoEvents()
 	End Sub
-	Private Sub BrowseFolder()
-		Dim _selectedFolderPath As String
-		Using openFileDialog As New OpenFileDialog()
-			openFileDialog.ValidateNames = False
-			openFileDialog.CheckFileExists = False
-			openFileDialog.CheckPathExists = True
-			openFileDialog.FileName = "Select Folder"
-			If openFileDialog.ShowDialog() = DialogResult.OK Then
-			 _selectedFolderPath = openFileDialog.FileName
-				Console.WriteLine($"Selected folder path: {_selectedFolderPath}")
-			End If
-		End Using
+Public Sub SetAttrib(exsta As String, path As String)
+	Debug.WriteLine($"SetAttrib called with exsta: {exsta}, path: {path}")
+	If exsta.ToUpper() = "OFF" Then
+		' Set the directory attributes to Hidden and System
+		Dim attributes As FileAttributes = File.GetAttributes(path)
+		attributes = attributes Or FileAttributes.Hidden Or FileAttributes.System
+		File.SetAttributes(path, attributes)
+		Debug.WriteLine($"Attributes set to Hidden and System for path: {path}")
+		' Share the directory
+		ShareDirectory(path)
+	ElseIf exsta.ToUpper() = "ON" Then
+		' Remove the Hidden and System attributes
+		Dim attributes As FileAttributes = File.GetAttributes(path)
+		attributes = attributes And Not FileAttributes.Hidden And Not FileAttributes.System
+		File.SetAttributes(path, attributes)
+		Debug.WriteLine($"Attributes removed for path: {path}")
+		' Unshare the directory
+		UnshareDirectory(path)
+	End If
+End Sub
+
+Private Sub ShareDirectory(path As String)
+	Try
+		' Create the SHARE_INFO_2 structure
+		Dim shareInfo As New SHARE_INFO_2()
+		shareInfo.shi2_netname = System.IO.Path.GetFileName(path.TrimEnd("\"c)) ' Correct usage of Path.GetFileName
+		shareInfo.shi2_type = 0 ' Disk Drive
+		shareInfo.shi2_remark = "Shared by SetupShares"
+		shareInfo.shi2_permissions = 0
+		shareInfo.shi2_max_uses = -1
+		shareInfo.shi2_current_uses = 0
+		shareInfo.shi2_path = path
+		shareInfo.shi2_passwd = Nothing
+
+		' Marshal the structure to an IntPtr
+		Dim buffer As IntPtr = Marshal.AllocHGlobal(Marshal.SizeOf(shareInfo))
+		Marshal.StructureToPtr(shareInfo, buffer, False)
+
+		' Call NetShareAdd
+		Dim parm_err As Integer = 0
+		Dim result As Integer = NetShareAdd(Nothing, 2, buffer, parm_err)
+
+		' Free the allocated memory
+		Marshal.FreeHGlobal(buffer)
+
+		If result = 0 Then
+			MessageBox.Show($"Directory {path} shared successfully.")
+		Else
+			MessageBox.Show($"Failed to share directory {path}. Error code: {result}")
+		End If
+	Catch ex As Exception
+		MessageBox.Show("Error sharing directory: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+	End Try
+End Sub
+	Private Sub UnshareDirectory(path As String)
+	 Try
+		' Create a ManagementObjectSearcher to find the share
+			Dim searcher As New ManagementObjectSearcher("SELECT * FROM Win32_Share WHERE Path = '" & path.Replace("\", "\\") & "'")
+			For Each share As ManagementObject In searcher.Get()
+			' Delete the share
+				share.InvokeMethod("Delete", Nothing)
+			Next
+	 Catch ex As Exception
+				MessageBox.Show("Error unsharing directory: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+	 End Try
 	End Sub
-End Module  
+
+	'	Private Sub BrowseFolder()
+	'		Dim _selectedFolderPath As String
+	'		Using openFileDialog As New OpenFileDialog()
+	'			openFileDialog.ValidateNames = False
+	'			openFileDialog.CheckFileExists = False
+	'			openFileDialog.CheckPathExists = True
+	'			openFileDialog.FileName = "Select Folder"
+	'			If openFileDialog.ShowDialog() = DialogResult.OK Then
+	'			 _selectedFolderPath = openFileDialog.FileName
+	'				Console.WriteLine($"Selected folder path: {_selectedFolderPath}")
+	'			End If
+	'		End Using
+	'	End Sub
+End Module

@@ -22,6 +22,7 @@ Partial Class SetupForm
 	'Do not modify it using the code editor.
 	<System.Diagnostics.DebuggerStepThrough()>
 	Private Sub InitializeComponent()
+		Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SetupForm))
 		lblSetPswd = New Label()
 		txtSetPswd = New TextBox()
 		btnSave = New Button()
@@ -29,12 +30,15 @@ Partial Class SetupForm
 		cboxColorScheme = New ComboBox()
 		lblSetColor = New Label()
 		lblWelcome = New Label()
+		PBoxShowPswd = New PictureBox()
+		btnInfo = New Button()
+		CType(PBoxShowPswd, ComponentModel.ISupportInitialize).BeginInit()
 		SuspendLayout()
 		' 
 		' lblSetPswd
 		' 
 		lblSetPswd.AutoSize = True
-		lblSetPswd.Location = New Point(50, 76)
+		lblSetPswd.Location = New Point(105, 64)
 		lblSetPswd.Name = "lblSetPswd"
 		lblSetPswd.Size = New Size(170, 25)
 		lblSetPswd.TabIndex = 0
@@ -42,15 +46,14 @@ Partial Class SetupForm
 		' 
 		' txtSetPswd
 		' 
-		txtSetPswd.Location = New Point(226, 73)
+		txtSetPswd.Location = New Point(292, 56)
 		txtSetPswd.Name = "txtSetPswd"
-		txtSetPswd.PasswordChar = "*"c
-		txtSetPswd.Size = New Size(353, 33)
+		txtSetPswd.Size = New Size(396, 33)
 		txtSetPswd.TabIndex = 1
 		' 
 		' btnSave
 		' 
-		btnSave.Location = New Point(585, 115)
+		btnSave.Location = New Point(610, 115)
 		btnSave.Name = "btnSave"
 		btnSave.Size = New Size(116, 39)
 		btnSave.TabIndex = 2
@@ -59,7 +62,7 @@ Partial Class SetupForm
 		' 
 		' btnCancel
 		' 
-		btnCancel.Location = New Point(449, 115)
+		btnCancel.Location = New Point(471, 115)
 		btnCancel.Name = "btnCancel"
 		btnCancel.Size = New Size(116, 39)
 		btnCancel.TabIndex = 3
@@ -69,15 +72,15 @@ Partial Class SetupForm
 		' cboxColorScheme
 		' 
 		cboxColorScheme.FormattingEnabled = True
-		cboxColorScheme.Location = New Point(226, 119)
+		cboxColorScheme.Location = New Point(292, 119)
 		cboxColorScheme.Name = "cboxColorScheme"
-		cboxColorScheme.Size = New Size(199, 33)
+		cboxColorScheme.Size = New Size(162, 33)
 		cboxColorScheme.TabIndex = 4
 		' 
 		' lblSetColor
 		' 
 		lblSetColor.AutoSize = True
-		lblSetColor.Location = New Point(77, 122)
+		lblSetColor.Location = New Point(132, 126)
 		lblSetColor.Name = "lblSetColor"
 		lblSetColor.Size = New Size(143, 25)
 		lblSetColor.TabIndex = 5
@@ -87,11 +90,31 @@ Partial Class SetupForm
 		' 
 		lblWelcome.AutoSize = True
 		lblWelcome.Font = New Font("Segoe UI", 14F, FontStyle.Italic, GraphicsUnit.Point, CByte(0))
-		lblWelcome.Location = New Point(17, 20)
+		lblWelcome.Location = New Point(17, 8)
 		lblWelcome.Name = "lblWelcome"
 		lblWelcome.Size = New Size(697, 25)
 		lblWelcome.TabIndex = 6
 		lblWelcome.Text = "Welcome to ShareCtrl. Please select a new user password and pick a windows theme"
+		' 
+		' PBoxShowPswd
+		' 
+		PBoxShowPswd.Image = CType(resources.GetObject("PBoxShowPswd.Image"), Image)
+		PBoxShowPswd.Location = New Point(688, 56)
+		PBoxShowPswd.Name = "PBoxShowPswd"
+		PBoxShowPswd.Size = New Size(38, 33)
+		PBoxShowPswd.SizeMode = PictureBoxSizeMode.StretchImage
+		PBoxShowPswd.TabIndex = 7
+		PBoxShowPswd.TabStop = False
+		' 
+		' btnInfo
+		' 
+		btnInfo.Font = New Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+		btnInfo.Location = New Point(17, 122)
+		btnInfo.Name = "btnInfo"
+		btnInfo.Size = New Size(45, 32)
+		btnInfo.TabIndex = 9
+		btnInfo.Text = "Info"
+		btnInfo.UseVisualStyleBackColor = True
 		' 
 		' SetupForm
 		' 
@@ -99,7 +122,9 @@ Partial Class SetupForm
 		AutoScaleDimensions = New SizeF(11F, 25F)
 		AutoScaleMode = AutoScaleMode.Font
 		CancelButton = btnCancel
-		ClientSize = New Size(738, 177)
+		ClientSize = New Size(751, 180)
+		Controls.Add(btnInfo)
+		Controls.Add(PBoxShowPswd)
 		Controls.Add(lblWelcome)
 		Controls.Add(lblSetColor)
 		Controls.Add(cboxColorScheme)
@@ -109,6 +134,7 @@ Partial Class SetupForm
 		Controls.Add(lblSetPswd)
 		Name = "SetupForm"
 		Text = "SetupForm"
+		CType(PBoxShowPswd, ComponentModel.ISupportInitialize).EndInit()
 		ResumeLayout(False)
 		PerformLayout()
 
@@ -121,6 +147,8 @@ Partial Class SetupForm
 	Friend WithEvents cboxColorScheme As ComboBox
 	Friend WithEvents lblSetColor As Label
 	Friend WithEvents lblWelcome As Label
+	Friend WithEvents PBoxShowPswd As PictureBox
+	Friend WithEvents btnInfo As Button
 End Class
 
 

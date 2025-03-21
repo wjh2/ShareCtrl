@@ -15,7 +15,7 @@ Option Explicit On
 Namespace My
     
     <Global.System.Runtime.CompilerServices.CompilerGeneratedAttribute(),  _
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.12.0.0"),  _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.13.0.0"),  _
      Global.System.ComponentModel.EditorBrowsableAttribute(Global.System.ComponentModel.EditorBrowsableState.Advanced)>  _
     Partial Friend NotInheritable Class MySettings
         Inherits Global.System.Configuration.ApplicationSettingsBase
@@ -80,37 +80,36 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("White")>  _
-        Public Property BackgroundColor() As Global.System.Drawing.Color
-            Get
-                Return CType(Me("BackgroundColor"),Global.System.Drawing.Color)
-            End Get
-            Set
-                Me("BackgroundColor") = value
-            End Set
-        End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("Black")>  _
-        Public Property TextColor() As Global.System.Drawing.Color
-            Get
-                Return CType(Me("TextColor"),Global.System.Drawing.Color)
-            End Get
-            Set
-                Me("TextColor") = value
-            End Set
-        End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Aero")>  _
         Public Property ColorScheme() As String
             Get
                 Return CType(Me("ColorScheme"),String)
             End Get
             Set
                 Me("ColorScheme") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute()>  _
+        Public Property SharePaths() As Global.System.Collections.Specialized.StringCollection
+            Get
+                Return CType(Me("SharePaths"),Global.System.Collections.Specialized.StringCollection)
+            End Get
+            Set
+                Me("SharePaths") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property AutoMode() As Boolean
+            Get
+                Return CType(Me("AutoMode"),Boolean)
+            End Get
+            Set
+                Me("AutoMode") = value
             End Set
         End Property
     End Class

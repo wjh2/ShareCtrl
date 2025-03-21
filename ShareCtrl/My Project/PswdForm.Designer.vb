@@ -22,10 +22,14 @@ Partial Class PswdForm
 	'Do not modify it using the code editor.
 	<System.Diagnostics.DebuggerStepThrough()>
 	Private Sub InitializeComponent()
+		Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(PswdForm))
 		lblPword = New Label()
 		tboxPswd = New TextBox()
 		btnCancel = New Button()
 		btnOk = New Button()
+		pboxShowPswd = New PictureBox()
+		ckboxAutoMode = New CheckBox()
+		CType(pboxShowPswd, ComponentModel.ISupportInitialize).BeginInit()
 		SuspendLayout()
 		' 
 		' lblPword
@@ -41,7 +45,6 @@ Partial Class PswdForm
 		' 
 		tboxPswd.Location = New Point(180, 27)
 		tboxPswd.Name = "tboxPswd"
-		tboxPswd.PasswordChar = "*"c
 		tboxPswd.Size = New Size(336, 33)
 		tboxPswd.TabIndex = 1
 		' 
@@ -63,6 +66,26 @@ Partial Class PswdForm
 		btnOk.Text = "OK"
 		btnOk.UseVisualStyleBackColor = True
 		' 
+		' pboxShowPswd
+		' 
+		pboxShowPswd.Image = CType(resources.GetObject("pboxShowPswd.Image"), Image)
+		pboxShowPswd.Location = New Point(524, 27)
+		pboxShowPswd.Name = "pboxShowPswd"
+		pboxShowPswd.Size = New Size(33, 30)
+		pboxShowPswd.SizeMode = PictureBoxSizeMode.StretchImage
+		pboxShowPswd.TabIndex = 8
+		pboxShowPswd.TabStop = False
+		' 
+		' ckboxAutoMode
+		' 
+		ckboxAutoMode.AutoSize = True
+		ckboxAutoMode.Location = New Point(30, 84)
+		ckboxAutoMode.Name = "ckboxAutoMode"
+		ckboxAutoMode.Size = New Size(125, 29)
+		ckboxAutoMode.TabIndex = 9
+		ckboxAutoMode.Text = "Auto Mode"
+		ckboxAutoMode.UseVisualStyleBackColor = True
+		' 
 		' PswdForm
 		' 
 		AcceptButton = btnOk
@@ -70,6 +93,8 @@ Partial Class PswdForm
 		AutoScaleMode = AutoScaleMode.Font
 		CancelButton = btnCancel
 		ClientSize = New Size(579, 139)
+		Controls.Add(ckboxAutoMode)
+		Controls.Add(pboxShowPswd)
 		Controls.Add(btnOk)
 		Controls.Add(btnCancel)
 		Controls.Add(tboxPswd)
@@ -77,6 +102,7 @@ Partial Class PswdForm
 		FormBorderStyle = FormBorderStyle.Fixed3D
 		Name = "PswdForm"
 		Text = "Share Contol Debugger"
+		CType(pboxShowPswd, ComponentModel.ISupportInitialize).EndInit()
 		ResumeLayout(False)
 		PerformLayout()
 	End Sub
@@ -85,5 +111,7 @@ Partial Class PswdForm
     Friend WithEvents tboxPswd As TextBox
     Friend WithEvents btnCancel As Button
     Friend WithEvents btnOk As Button
+	Friend WithEvents pboxShowPswd As PictureBox
+	Friend WithEvents ckboxAutoMode As CheckBox
 
 End Class

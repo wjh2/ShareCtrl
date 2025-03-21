@@ -22,6 +22,7 @@ Partial Class OnOffForm
 	'Do not modify it using the code editor.
 	<System.Diagnostics.DebuggerStepThrough()>
 	Private Sub InitializeComponent()
+		Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(OnOffForm))
 		PBoxOff = New PictureBox()
 		PBoxOn = New PictureBox()
 		NumericUpDown1 = New NumericUpDown()
@@ -29,9 +30,6 @@ Partial Class OnOffForm
 		btnAccept = New Button()
 		btnCancel = New Button()
 		ckboxShowShares = New CheckBox()
-		FolderBrowserDialog1 = New FolderBrowserDialog()
-		txtDir = New TextBox()
-		btnBrowse = New Button()
 		CType(PBoxOff, ComponentModel.ISupportInitialize).BeginInit()
 		CType(PBoxOn, ComponentModel.ISupportInitialize).BeginInit()
 		CType(NumericUpDown1, ComponentModel.ISupportInitialize).BeginInit()
@@ -39,7 +37,7 @@ Partial Class OnOffForm
 		' 
 		' PBoxOff
 		' 
-		PBoxOff.Image = My.Resources.Resources.off_pic
+		PBoxOff.Image = CType(resources.GetObject("PBoxOff.Image"), Image)
 		PBoxOff.Location = New Point(0, 0)
 		PBoxOff.Name = "PBoxOff"
 		PBoxOff.Size = New Size(210, 340)
@@ -48,7 +46,7 @@ Partial Class OnOffForm
 		' 
 		' PBoxOn
 		' 
-		PBoxOn.Image = My.Resources.Resources.on_pic
+		PBoxOn.Image = CType(resources.GetObject("PBoxOn.Image"), Image)
 		PBoxOn.Location = New Point(0, 0)
 		PBoxOn.Name = "PBoxOn"
 		PBoxOn.Size = New Size(210, 340)
@@ -102,37 +100,13 @@ Partial Class OnOffForm
 		ckboxShowShares.Text = "Show Shares"
 		ckboxShowShares.UseVisualStyleBackColor = True
 		' 
-		' FolderBrowserDialog1
-		' 
-		FolderBrowserDialog1.InitialDirectory = "c:\"
-		FolderBrowserDialog1.RootFolder = Environment.SpecialFolder.DesktopDirectory
-		FolderBrowserDialog1.SelectedPath = "C:\"
-		' 
-		' txtDir
-		' 
-		txtDir.Location = New Point(270, 12)
-		txtDir.Name = "txtDir"
-		txtDir.Size = New Size(397, 33)
-		txtDir.TabIndex = 7
-		' 
-		' btnBrowse
-		' 
-		btnBrowse.Location = New Point(270, 90)
-		btnBrowse.Name = "btnBrowse"
-		btnBrowse.Size = New Size(157, 46)
-		btnBrowse.TabIndex = 8
-		btnBrowse.Text = "BROWSE"
-		btnBrowse.UseVisualStyleBackColor = True
-		' 
 		' OnOffForm
 		' 
 		AcceptButton = btnAccept
 		AutoScaleMode = AutoScaleMode.None
 		AutoSizeMode = AutoSizeMode.GrowAndShrink
 		CancelButton = btnCancel
-		ClientSize = New Size(853, 486)
-		Controls.Add(btnBrowse)
-		Controls.Add(txtDir)
+		ClientSize = New Size(210, 486)
 		Controls.Add(ckboxShowShares)
 		Controls.Add(btnCancel)
 		Controls.Add(btnAccept)
@@ -156,9 +130,6 @@ Partial Class OnOffForm
 	Friend WithEvents btnAccept As Button
 	Friend WithEvents btnCancel As Button
 	Friend WithEvents ckboxShowShares As CheckBox
-	Friend WithEvents FolderBrowserDialog1 As FolderBrowserDialog
-	Friend WithEvents txtDir As TextBox
-	Friend WithEvents btnBrowse As Button
 	Public Shared Property off_pic As System.Drawing.Image
 	Public Shared Property on_pic As System.Drawing.Image
 End Class
