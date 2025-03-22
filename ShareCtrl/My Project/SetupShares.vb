@@ -29,7 +29,7 @@ Public Class SetupShares
 					' Check for duplicate entries
 					If Not IsDuplicateEntry(path) Then
 						' Populate the ListView
-						Dim lvItem As New ListViewItem("OFF")
+						Dim lvItem As New ListViewItem()
 						lviewShares.View = View.Details
 						lviewShares.Columns.Clear()
 						lviewShares.Columns.Add("Status", 84)
@@ -101,10 +101,14 @@ Public Class SetupShares
 				' Check if the directory is shared
 				Dim isShared As Boolean = IsDirectoryShared(ckPath)
 				' Set the item status based on the conditions
-				If isHidden AndAlso isSystem AndAlso isShared Then
-					item.Text = "ON"
-				Else
+				If isHidden AndAlso isSystem Then ' AndAlso isShared Then
 					item.Text = "OFF"
+				Else
+					item.Text = "ON"
+					'share the directory here if it is not already shared
+					If Not isShared Then
+						ShareDirectory(ckPath)
+					End If
 				End If
 			Else
 				MessageBox.Show("The directory does not exist.")
@@ -123,18 +127,19 @@ Public Class SetupShares
 		Return False
 	End Function
 	Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
-    For Each item As ListViewItem In lviewShares.Items
+		For Each item As ListViewItem In lviewShares.Items
 			' Check if the item is selected
-      If item.Selected Then
+			If item.Selected Then
 				' Get the "exsta" value from the first column and the "path" value from the second column
-        Dim exsta As String = item.SubItems(0).Text
-        Dim path As String = item.SubItems(1).Text
+				Dim exsta As String = item.SubItems(0).Text
+				Dim path As String = item.SubItems(1).Text
+				' Display a message box with the selected share path
+				MessageBox.Show("The Share Path " & path & " is selected with status " & exsta)
+
 				' Call the SetAttrib method with the appropriate values
-        SetAttrib(exsta, path)
-        ' Display a message box with the selected share path
-        MessageBox.Show("The Share Path " & path & " is selected with status " & exsta)
-      End If
-    Next
+				SetAttrib(exsta, path)
+			End If
+		Next
 		' Call the procedure to add all of the shares to the settings.settings file
 		If My.Settings.SharePaths.Count > 0 Then
 			HashPaths() ' combine all the listview items and the existing items in the settings.settings file into one list

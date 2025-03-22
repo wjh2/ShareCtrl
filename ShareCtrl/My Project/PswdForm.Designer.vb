@@ -29,6 +29,7 @@ Partial Class PswdForm
 		btnOk = New Button()
 		pboxShowPswd = New PictureBox()
 		ckboxAutoMode = New CheckBox()
+		btnSettings = New Button()
 		CType(pboxShowPswd, ComponentModel.ISupportInitialize).BeginInit()
 		SuspendLayout()
 		' 
@@ -50,7 +51,7 @@ Partial Class PswdForm
 		' 
 		' btnCancel
 		' 
-		btnCancel.Location = New Point(212, 80)
+		btnCancel.Location = New Point(321, 79)
 		btnCancel.Name = "btnCancel"
 		btnCancel.Size = New Size(103, 34)
 		btnCancel.TabIndex = 3
@@ -59,7 +60,7 @@ Partial Class PswdForm
 		' 
 		' btnOk
 		' 
-		btnOk.Location = New Point(376, 80)
+		btnOk.Location = New Point(454, 79)
 		btnOk.Name = "btnOk"
 		btnOk.Size = New Size(103, 34)
 		btnOk.TabIndex = 2
@@ -79,12 +80,21 @@ Partial Class PswdForm
 		' ckboxAutoMode
 		' 
 		ckboxAutoMode.AutoSize = True
-		ckboxAutoMode.Location = New Point(30, 84)
+		ckboxAutoMode.Location = New Point(180, 83)
 		ckboxAutoMode.Name = "ckboxAutoMode"
 		ckboxAutoMode.Size = New Size(125, 29)
 		ckboxAutoMode.TabIndex = 9
 		ckboxAutoMode.Text = "Auto Mode"
 		ckboxAutoMode.UseVisualStyleBackColor = True
+		' 
+		' btnSettings
+		' 
+		btnSettings.Location = New Point(30, 79)
+		btnSettings.Name = "btnSettings"
+		btnSettings.Size = New Size(103, 33)
+		btnSettings.TabIndex = 10
+		btnSettings.Text = "Settings"
+		btnSettings.UseVisualStyleBackColor = True
 		' 
 		' PswdForm
 		' 
@@ -93,6 +103,7 @@ Partial Class PswdForm
 		AutoScaleMode = AutoScaleMode.Font
 		CancelButton = btnCancel
 		ClientSize = New Size(579, 139)
+		Controls.Add(btnSettings)
 		Controls.Add(ckboxAutoMode)
 		Controls.Add(pboxShowPswd)
 		Controls.Add(btnOk)
@@ -113,5 +124,6 @@ Partial Class PswdForm
     Friend WithEvents btnOk As Button
 	Friend WithEvents pboxShowPswd As PictureBox
 	Friend WithEvents ckboxAutoMode As CheckBox
+	Friend WithEvents btnSettings As Button
 
 End Class

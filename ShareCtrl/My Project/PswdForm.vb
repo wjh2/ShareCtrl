@@ -6,7 +6,7 @@ Public Class PswdForm
 		tboxPswd.PasswordChar = "*"c
 	End Sub
 	Private Sub btnOK_Click(sender As Object, e As EventArgs) Handles btnOk.Click
-		My.Settings.AutoMode = ckboxAutoMode.Checked	
+		My.Settings.AutoMode = ckboxAutoMode.Checked
 		' Validate the password
 		If ValidatePassword(tboxPswd.Text) Then
 			' Close the form and set the DialogResult to OK
@@ -20,6 +20,23 @@ Public Class PswdForm
 		' Set the DialogResult to Cancel and close the form
 		Me.DialogResult = DialogResult.Cancel
 	End Sub
+	Private Sub btnSettings_Click(sender As Object, e As EventArgs) Handles btnSettings.Click
+		'Check to make sure the password is correct before allowing access to the SetupForm
+		If Not ValidatePassword(tboxPswd.Text) Then
+			MessageBox.Show("Invalid Password, please enter the correct password to access settings.", "Invalid Password", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+			Return
+		End If
+		' Show the SetupForm to allow the user to change settings
+		Me.Hide() ' Hide the current form before showing the SetupForm
+		'exitsing lblWelcome.text = Welcome to ShareCtrl. Please select a new user password and pick a windows theme
+		SetupForm.lblWelcome.Text = "ShareCtrl Settings -Use the existing or a new password to save your new settings."
+		SetupForm.ShowDialog()
+		SetupForm.lblWelcome.Text = "Welcome to ShareCtrl. Please select a new user password and pick a windows theme"
+		me.tboxPswd.text= My.Settings.thePassword
+		Me.Refresh() ' Refresh the PswdForm to update any changes made in the SetupForm	
+		Me.Show() ' Show the PswdForm again after the SetupForm is closed
+	End Sub
+
 	Private Shared Function ValidatePassword(password As String) As Boolean
 		' Add your password validation logic here
 		Return password = My.Settings.thePassword ' Update with your actual my.Settings Pswd Value
@@ -32,7 +49,6 @@ Public Class PswdForm
 			tboxPswd.PasswordChar = ControlChars.NullChar ' Show the password
 		End If
 	End Sub
-
 	Private Sub ckboxAutoMode_CheckedChanged(sender As Object, e As EventArgs) Handles ckboxAutoMode.CheckedChanged
 		If ckboxAutoMode.Checked Then
 			' Enable auto mode settings

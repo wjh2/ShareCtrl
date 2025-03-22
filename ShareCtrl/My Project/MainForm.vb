@@ -60,8 +60,8 @@ Module Program ' this Module was added to get around the visual studio req for t
 			End If
 			SetProgramParameters()
 		End If
-		Dim currentState As Boolean = OnOffForm.State '<--------------This is the End!!
-		MessageBox.Show("The CheckBox is unknown. My State is " & currentState.ToString() & " and here is where the program will proceed to the next step")
+		'Dim currentState As Boolean = OnOffForm.State '<--------------This is the End!!
+		MessageBox.Show("Here is where the program will proceed to the next step")
 	End Sub
 	Private Sub SetProgramParameters()
 		' Apply the saved visual style
@@ -104,26 +104,26 @@ Module Program ' this Module was added to get around the visual studio req for t
 	End Sub
 Public Sub SetAttrib(exsta As String, path As String)
 	Debug.WriteLine($"SetAttrib called with exsta: {exsta}, path: {path}")
-	If exsta.ToUpper() = "OFF" Then
-		' Set the directory attributes to Hidden and System
+	If exsta.ToUpper() = "ON" Then
+		' Remove the Hidden and System attributes
 		Dim attributes As FileAttributes = File.GetAttributes(path)
 		attributes = attributes Or FileAttributes.Hidden Or FileAttributes.System
 		File.SetAttributes(path, attributes)
 		Debug.WriteLine($"Attributes set to Hidden and System for path: {path}")
-		' Share the directory
-		ShareDirectory(path)
-	ElseIf exsta.ToUpper() = "ON" Then
-		' Remove the Hidden and System attributes
+		' Unshare the directory
+		UnshareDirectory(path)
+	ElseIf exsta.ToUpper() = "OFF" Then
+		' Set the directory attributes to Hidden and System
 		Dim attributes As FileAttributes = File.GetAttributes(path)
 		attributes = attributes And Not FileAttributes.Hidden And Not FileAttributes.System
 		File.SetAttributes(path, attributes)
 		Debug.WriteLine($"Attributes removed for path: {path}")
-		' Unshare the directory
-		UnshareDirectory(path)
+		' Share the directory
+		ShareDirectory(path)
 	End If
 End Sub
 
-Private Sub ShareDirectory(path As String)
+Public Sub ShareDirectory(path As String)
 	Try
 		' Create the SHARE_INFO_2 structure
 		Dim shareInfo As New SHARE_INFO_2()

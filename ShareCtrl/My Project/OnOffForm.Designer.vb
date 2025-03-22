@@ -73,7 +73,7 @@ Partial Class OnOffForm
 		' btnAccept
 		' 
 		btnAccept.DialogResult = DialogResult.OK
-		btnAccept.Location = New Point(12, 399)
+		btnAccept.Location = New Point(119, 442)
 		btnAccept.Name = "btnAccept"
 		btnAccept.Size = New Size(79, 34)
 		btnAccept.TabIndex = 4
@@ -83,11 +83,11 @@ Partial Class OnOffForm
 		' btnCancel
 		' 
 		btnCancel.DialogResult = DialogResult.Cancel
-		btnCancel.Location = New Point(119, 399)
+		btnCancel.Location = New Point(12, 380)
 		btnCancel.Name = "btnCancel"
-		btnCancel.Size = New Size(79, 34)
+		btnCancel.Size = New Size(186, 34)
 		btnCancel.TabIndex = 5
-		btnCancel.Text = "Cancel"
+		btnCancel.Text = "Close"
 		btnCancel.UseVisualStyleBackColor = True
 		' 
 		' ckboxShowShares
@@ -106,7 +106,7 @@ Partial Class OnOffForm
 		AutoScaleMode = AutoScaleMode.None
 		AutoSizeMode = AutoSizeMode.GrowAndShrink
 		CancelButton = btnCancel
-		ClientSize = New Size(210, 486)
+		ClientSize = New Size(210, 424)
 		Controls.Add(ckboxShowShares)
 		Controls.Add(btnCancel)
 		Controls.Add(btnAccept)
