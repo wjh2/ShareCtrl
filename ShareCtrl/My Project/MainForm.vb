@@ -5,8 +5,6 @@ Imports System.Diagnostics
 Imports System.Management
 Imports System.IO
 Imports System.Runtime.InteropServices
-'Imports System.Windows.Forms.AxHost
-
 Module Program ' this Module was added to get around the visual studio req for the startup object to be a form
 	' Declare the external function here
 	Declare Auto Function NetShareAdd Lib "netapi32.dll" ( _
@@ -14,7 +12,6 @@ Module Program ' this Module was added to get around the visual studio req for t
 		ByVal level As Integer, _
 		ByVal buf As IntPtr, _
 		ByRef parm_err As Integer) As Integer
-
 	' Define the SHARE_INFO_2 structure
 	<StructLayout(LayoutKind.Sequential, CharSet:=CharSet.Unicode)>
 	Public Structure SHARE_INFO_2
@@ -27,7 +24,6 @@ Module Program ' this Module was added to get around the visual studio req for t
 		Public shi2_path As String
 		Public shi2_passwd As String
 	End Structure
-
 	Public Sub Main() ' this is now the startup object 
 		' Enable visual styles and set compatible text rendering default
 		Application.EnableVisualStyles()
@@ -43,9 +39,8 @@ Module Program ' this Module was added to get around the visual studio req for t
 			' Set program parameters based on data in Settings.settings file
 			SetProgramParameters()
 		Else
-			Debug.WriteLine("IsSetupCompleted is False.")
 			' Launch SetupForm to populate Settings.settings
-			If SetupForm.ShowDialog() = DialogResult.OK Then '================== Setup Form ==================================> 
+			If SetupForm.ShowDialog() = DialogResult.OK Then
 				'Save the settings and mark the setup as completed
 				My.Settings.IsSetupCompleted = True
 				'Apply the saved visual style after setup is completed
@@ -53,15 +48,14 @@ Module Program ' this Module was added to get around the visual studio req for t
 				If Not String.IsNullOrEmpty(savedTheme) Then
 					ApplyVisualStyle(savedTheme)
 				End If
-				'My.Settings.Save()<----------------------------------------Verify if this is needed
 			Else
 				' Exit the application if the user cancels the setup
 				Environment.Exit(0)
 			End If
 			SetProgramParameters()
 		End If
-		'Dim currentState As Boolean = OnOffForm.State '<--------------This is the End!!
-		MessageBox.Show("Here is where the program will proceed to the next step")
+		'This is the End!!
+		'MessageBox.Show("This is the end, my only friend, The End!")
 	End Sub
 	Private Sub SetProgramParameters()
 		' Apply the saved visual style
@@ -71,26 +65,26 @@ Module Program ' this Module was added to get around the visual studio req for t
 		End If
 		' Get the user password using the PswdForm.vb
 		Dim pswdForm As New PswdForm()
-		If pswdForm.ShowDialog() = DialogResult.OK Then '================== Password Form ==================================> 
+		If pswdForm.ShowDialog() = DialogResult.OK Then 
 			If My.Settings.SharePaths.Count > 0 Then
 				If My.Settings.AutoMode = True Then
-					OnOffForm.ShowDialog() '================== OnOffForm ==================================>
+					OnOffForm.ShowDialog()
 				Else
-					SetupShares.ShowDialog() '================== SetupShares Form ==================================> 
+					SetupShares.ShowDialog()
 				End If
 			Else
 				' If there are no existing shares, then show the SetopShares form
-				SetupShares.ShowDialog() '================== To SetupShares Form ==================================> 
+				SetupShares.ShowDialog() 
 			End If
 		Else
 			' if the user cancels the password form
 			Exit Sub
 		End If
-		MessageBox.Show("Thats All Folks! The share were updated")
+		MessageBox.Show("Thats All Folks!")
 		' Exit the application 
 		Environment.Exit(0)
 	End Sub
-	Private Sub ApplyVisualStyle(theme As String) 'for now Duplicate sub - Also in the SetupForm 
+	Private Sub ApplyVisualStyle(theme As String) 'Duplicate sub - Also in the SetupForm 
 		Select Case theme
 			Case "Aero"
 				Application.VisualStyleState = VisualStyleState.ClientAndNonClientAreasEnabled
@@ -103,7 +97,6 @@ Module Program ' this Module was added to get around the visual studio req for t
 		Application.DoEvents()
 	End Sub
 Public Sub SetAttrib(exsta As String, path As String)
-	Debug.WriteLine($"SetAttrib called with exsta: {exsta}, path: {path}")
 	If exsta.ToUpper() = "ON" Then
 		' Remove the Hidden and System attributes
 		Dim attributes As FileAttributes = File.GetAttributes(path)
@@ -122,7 +115,6 @@ Public Sub SetAttrib(exsta As String, path As String)
 		ShareDirectory(path)
 	End If
 End Sub
-
 Public Sub ShareDirectory(path As String)
 	Try
 		' Create the SHARE_INFO_2 structure
@@ -135,23 +127,19 @@ Public Sub ShareDirectory(path As String)
 		shareInfo.shi2_current_uses = 0
 		shareInfo.shi2_path = path
 		shareInfo.shi2_passwd = Nothing
-
 		' Marshal the structure to an IntPtr
 		Dim buffer As IntPtr = Marshal.AllocHGlobal(Marshal.SizeOf(shareInfo))
 		Marshal.StructureToPtr(shareInfo, buffer, False)
-
 		' Call NetShareAdd
 		Dim parm_err As Integer = 0
 		Dim result As Integer = NetShareAdd(Nothing, 2, buffer, parm_err)
-
 		' Free the allocated memory
 		Marshal.FreeHGlobal(buffer)
-
-		If result = 0 Then
-			MessageBox.Show($"Directory {path} shared successfully.")
-		Else
-			MessageBox.Show($"Failed to share directory {path}. Error code: {result}")
-		End If
+		'If result = 0 Then
+		'	MessageBox.Show($"Directory {path} shared successfully.")
+		'Else
+		'	MessageBox.Show($"Failed to share directory {path}. Error code: {result}")
+		'End If
 	Catch ex As Exception
 		MessageBox.Show("Error sharing directory: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
 	End Try
@@ -168,18 +156,4 @@ End Sub
 				MessageBox.Show("Error unsharing directory: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
 	 End Try
 	End Sub
-
-	'	Private Sub BrowseFolder()
-	'		Dim _selectedFolderPath As String
-	'		Using openFileDialog As New OpenFileDialog()
-	'			openFileDialog.ValidateNames = False
-	'			openFileDialog.CheckFileExists = False
-	'			openFileDialog.CheckPathExists = True
-	'			openFileDialog.FileName = "Select Folder"
-	'			If openFileDialog.ShowDialog() = DialogResult.OK Then
-	'			 _selectedFolderPath = openFileDialog.FileName
-	'				Console.WriteLine($"Selected folder path: {_selectedFolderPath}")
-	'			End If
-	'		End Using
-	'	End Sub
 End Module

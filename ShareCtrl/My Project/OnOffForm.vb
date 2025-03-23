@@ -5,7 +5,6 @@ Imports System.Windows.Forms.VisualStyles.VisualStyleElement.Button
 Public Class OnOffForm
 	Private myState As Boolean
 	Private exsta As String
-
 	Public Sub New()
 		' This call is required by the designer.
 		InitializeComponent()
@@ -13,12 +12,6 @@ Public Class OnOffForm
 		For Each ckPath As String In My.Settings.SharePaths
 			CheckDirectory(ckPath)
 		Next
-		' Determine if thr program is in Auto Mode <---------Should have been determined already
-		'If My.Settings.AutoMode Then
-			' Hide part of the OnOffForm
-		'Else
-			' If Auto Mode is disabled, set the OnOffForm to show the switch
-		'End If
 	End Sub
 	Private Sub OnOffForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 		' Set the initial visibility of the picture boxes
@@ -28,7 +21,7 @@ Public Class OnOffForm
 		PBoxOn.Top = 0
 		PBoxOn.Width = 210
 		PBoxOn.Height = 340
-
+		'PBoff
 		PBoxOff.Visible = True
 		PBoxOff.Left = 0
 		PBoxOff.Top = 0
@@ -102,27 +95,6 @@ Public Class OnOffForm
 			End If
 		Next
 	End Sub
-'	Private Sub ckboxShowShares_CheckedChanged(sender As Object, e As EventArgs) Handles ckboxShowShares.CheckedChanged
-'		If ckboxShowShares.Checked Then
-'			MessageBox.Show("The CheckBox is checked. My State is " & myState.ToString())
-'		Else
-'			MessageBox.Show("The CheckBox is unchecked. My State is " & myState.ToString())
-'		End If
-'	End Sub
-	 ' Property to encapsulate the myState variable
-'	Public Property State As Boolean <------Found way to not need this variable in other forms
-'		Get
-'			Return myState
-'		End Get
-'		Set(value As Boolean)
-'			myState = value
-'		End Set
-'	End Property
-
-	'Private Function GetCkboxShowShares() As System.Windows.Forms.CheckBox
-	'	'used to provide the current state of the checkbox from in or outside the OnOffForm
-	'	Return ckboxShowShares
-	'End Function
 	Private Sub CheckDirectory(ByRef dir As String)
 	' Check if the directory exists	
 	If Directory.Exists(dir) Then
@@ -155,7 +127,6 @@ Public Class OnOffForm
 		Next
 		Return False
 	End Function
-
 End Class	
 
 

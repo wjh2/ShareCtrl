@@ -49,6 +49,8 @@ Public Class SetupShares
 	Private Sub btnBrowse_Click(sender As Object, e As EventArgs) Handles btnBrowse.Click
 		' Call the browse folder dialog to select a directory
 		Dim folderDlg As New FolderBrowserDialog()
+		folderDlg.Description = "Select a folder to share"
+		folderDlg.RootFolder = Environment.SpecialFolder.MyComputer
 		folderDlg.ShowNewFolderButton = True
 		If folderDlg.ShowDialog() = DialogResult.OK Then
 			tboxSharePath.Text = folderDlg.SelectedPath
@@ -133,9 +135,6 @@ Public Class SetupShares
 				' Get the "exsta" value from the first column and the "path" value from the second column
 				Dim exsta As String = item.SubItems(0).Text
 				Dim path As String = item.SubItems(1).Text
-				' Display a message box with the selected share path
-				MessageBox.Show("The Share Path " & path & " is selected with status " & exsta)
-
 				' Call the SetAttrib method with the appropriate values
 				SetAttrib(exsta, path)
 			End If
@@ -174,7 +173,27 @@ Public Class SetupShares
 		' Save the settings to the user.config file
 		My.Settings.Save()
 	End sub
-
+	Private Sub btnDelete_Click(sender As Object, e As EventArgs) Handles btnDelete.Click
+		' Create a list to store the paths of the items to be deleted
+		Dim pathsToDelete As New List(Of String)
+		' Iterate through the ListView items
+		For Each item As ListViewItem In lviewShares.Items
+			' Check if the item is selected
+			If item.Selected Then
+				' Add the path of the selected item to the list
+				pathsToDelete.Add(item.SubItems(1).Text)
+			End If
+		Next
+		' Remove the selected items from the ListView
+		For Each path As String In pathsToDelete
+			For Each item As ListViewItem In lviewShares.Items
+				If item.SubItems(1).Text.Equals(path, StringComparison.OrdinalIgnoreCase) Then
+					lviewShares.Items.Remove(item)
+					Exit For
+				End If
+			Next
+		Next
+	End Sub
 	Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
 		' Close the SetupShares form
 		Me.Close()

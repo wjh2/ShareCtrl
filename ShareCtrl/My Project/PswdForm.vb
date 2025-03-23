@@ -1,10 +1,16 @@
 ﻿Imports System.Windows.Forms
+Imports System.Windows.Forms.VisualStyles.VisualStyleElement.Button
 Public Class PswdForm
 	Public Sub New()
 		InitializeComponent()
-		' Set the initial PasswordChar to hide the password
+' Set the initial PasswordChar to hide the password
 		tboxPswd.PasswordChar = "*"c
 	End Sub
+	Private Sub PswdForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+		' Set the initial state of Auto Mode to False
+		ckboxAutoMode.CheckState = CheckState.Unchecked
+		My.Settings.AutoMode = False
+	End Sub 
 	Private Sub btnOK_Click(sender As Object, e As EventArgs) Handles btnOk.Click
 		My.Settings.AutoMode = ckboxAutoMode.Checked
 		' Validate the password
@@ -28,18 +34,24 @@ Public Class PswdForm
 		End If
 		' Show the SetupForm to allow the user to change settings
 		Me.Hide() ' Hide the current form before showing the SetupForm
-		'exitsing lblWelcome.text = Welcome to ShareCtrl. Please select a new user password and pick a windows theme
-		SetupForm.lblWelcome.Text = "ShareCtrl Settings -Use the existing or a new password to save your new settings."
+		'addjust the lable to reflect the current state of the SetupForm
+		SetupForm.lblWelcome.Text = "ShareCtrl Settings -Use the existing or a new password to save your new settings." & vbCrLf & "Whatever you enter will be the new password for ShareCtrl"	
 		SetupForm.ShowDialog()
+		SetupForm.Hide()
 		SetupForm.lblWelcome.Text = "Welcome to ShareCtrl. Please select a new user password and pick a windows theme"
-		me.tboxPswd.text= My.Settings.thePassword
-		Me.Refresh() ' Refresh the PswdForm to update any changes made in the SetupForm	
-		Me.Show() ' Show the PswdForm again after the SetupForm is closed
+		If SetupForm.DialogResult=DialogResult.Cancel
+			' Exit the application if the user cancels the setup
+			Exit sub
+		Else
+			Me.tboxPswd.text= My.Settings.thePassword
+			Me.Refresh() ' Refresh the PswdForm to update any changes made in the SetupForm	
+			My.Settings.Save
+			Me.DialogResult = DialogResult.OK
+		End if
 	End Sub
-
 	Private Shared Function ValidatePassword(password As String) As Boolean
 		' Add your password validation logic here
-		Return password = My.Settings.thePassword ' Update with your actual my.Settings Pswd Value
+		Return password = My.Settings.thePassword 
 	End Function
 	Private Sub pboxShowPswd_Click(sender As Object, e As EventArgs) Handles pboxShowPswd.Click
 		' Toggle the PasswordChar property to show or hide the password
@@ -59,5 +71,4 @@ Public Class PswdForm
 		End If
 		My.Settings.Save() ' Save the settings
 	End Sub
-
 End Class

@@ -38,7 +38,7 @@ Partial Class SetupForm
 		' lblSetPswd
 		' 
 		lblSetPswd.AutoSize = True
-		lblSetPswd.Location = New Point(105, 64)
+		lblSetPswd.Location = New Point(105, 74)
 		lblSetPswd.Name = "lblSetPswd"
 		lblSetPswd.Size = New Size(170, 25)
 		lblSetPswd.TabIndex = 0
@@ -46,7 +46,7 @@ Partial Class SetupForm
 		' 
 		' txtSetPswd
 		' 
-		txtSetPswd.Location = New Point(292, 56)
+		txtSetPswd.Location = New Point(292, 66)
 		txtSetPswd.Name = "txtSetPswd"
 		txtSetPswd.Size = New Size(396, 33)
 		txtSetPswd.TabIndex = 1
@@ -99,7 +99,7 @@ Partial Class SetupForm
 		' PBoxShowPswd
 		' 
 		PBoxShowPswd.Image = CType(resources.GetObject("PBoxShowPswd.Image"), Image)
-		PBoxShowPswd.Location = New Point(688, 56)
+		PBoxShowPswd.Location = New Point(688, 66)
 		PBoxShowPswd.Name = "PBoxShowPswd"
 		PBoxShowPswd.Size = New Size(38, 33)
 		PBoxShowPswd.SizeMode = PictureBoxSizeMode.StretchImage

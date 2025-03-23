@@ -91,7 +91,12 @@ Public Class SetupForm
 		End If
 	End Sub
 	Private Sub btnInfo_Click(sender As Object, e As EventArgs) Handles btnInfo.Click
-
+		' provide a short synopsis of the program
+		MessageBox.Show("This program allow you to set up & manage multiple shared folders on your local system." & vbCrLf & vbCrLf &
+						"The Setup Shares Dialog will allow you to browse and Add Directories that you want to share. " &
+						"Your shares list will be saved and you can add or delete from that list. " &
+						"You can Select some or all Shares and toggle between UnHide/Share (ON) -or- Hide/Unshare (Off)." & vbCrLf & vbCrLf &
+						"Once you've created your share list you can then use the AutoMode function on the Passwords Form " &
+						"to toggle All of your Shares ON Or OFF with a single click" ,"Program Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
 	End Sub
-
 End Class

@@ -35,6 +35,8 @@ Partial Class SetupShares
 		btnCancel = New Button()
 		btnAdd = New Button()
 		lblDblClickInstructions = New Label()
+		btnDelete = New Button()
+		Label1 = New Label()
 		CType(PBoxSVS, ComponentModel.ISupportInitialize).BeginInit()
 		SuspendLayout()
 		' 
@@ -51,7 +53,7 @@ Partial Class SetupShares
 		btnBrowse.FlatAppearance.BorderSize = 2
 		btnBrowse.FlatStyle = FlatStyle.Popup
 		btnBrowse.Font = New Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-		btnBrowse.Location = New Point(50, 224)
+		btnBrowse.Location = New Point(50, 21)
 		btnBrowse.Name = "btnBrowse"
 		btnBrowse.Size = New Size(156, 53)
 		btnBrowse.TabIndex = 1
@@ -66,7 +68,7 @@ Partial Class SetupShares
 		' PBoxSVS
 		' 
 		PBoxSVS.Image = CType(resources.GetObject("PBoxSVS.Image"), Image)
-		PBoxSVS.Location = New Point(32, 21)
+		PBoxSVS.Location = New Point(23, 85)
 		PBoxSVS.Name = "PBoxSVS"
 		PBoxSVS.Size = New Size(193, 197)
 		PBoxSVS.SizeMode = PictureBoxSizeMode.CenterImage
@@ -107,9 +109,9 @@ Partial Class SetupShares
 		' btnSave
 		' 
 		btnSave.BackColor = SystemColors.ButtonFace
-		btnSave.Location = New Point(405, 300)
+		btnSave.Location = New Point(466, 301)
 		btnSave.Name = "btnSave"
-		btnSave.Size = New Size(156, 34)
+		btnSave.Size = New Size(95, 34)
 		btnSave.TabIndex = 5
 		btnSave.Text = "SAVE"
 		btnSave.TextAlign = ContentAlignment.TopCenter
@@ -120,7 +122,7 @@ Partial Class SetupShares
 		btnCancel.BackColor = SystemColors.ButtonFace
 		btnCancel.Location = New Point(231, 301)
 		btnCancel.Name = "btnCancel"
-		btnCancel.Size = New Size(156, 34)
+		btnCancel.Size = New Size(95, 34)
 		btnCancel.TabIndex = 6
 		btnCancel.Text = "CANCEL"
 		btnCancel.TextAlign = ContentAlignment.TopCenter
@@ -146,8 +148,29 @@ Partial Class SetupShares
 		lblDblClickInstructions.Name = "lblDblClickInstructions"
 		lblDblClickInstructions.Size = New Size(330, 25)
 		lblDblClickInstructions.TabIndex = 8
-		lblDblClickInstructions.Text = "Select Item(s) - Hit Save to Update the Share Status"
+		lblDblClickInstructions.Text = "Select Item(s) - Hit Save or Delete to Update the List"
 		lblDblClickInstructions.TextAlign = ContentAlignment.TopCenter
+		' 
+		' btnDelete
+		' 
+		btnDelete.BackColor = SystemColors.ButtonFace
+		btnDelete.Location = New Point(348, 301)
+		btnDelete.Name = "btnDelete"
+		btnDelete.Size = New Size(95, 34)
+		btnDelete.TabIndex = 9
+		btnDelete.Text = "DELETE"
+		btnDelete.TextAlign = ContentAlignment.TopCenter
+		btnDelete.UseVisualStyleBackColor = False
+		' 
+		' Label1
+		' 
+		Label1.Font = New Font("Arial Narrow", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+		Label1.Location = New Point(23, 348)
+		Label1.Name = "Label1"
+		Label1.Size = New Size(538, 25)
+		Label1.TabIndex = 10
+		Label1.Text = "NOTE: On = Shared and Visible,     Off = Not Shared and Invisible"
+		Label1.TextAlign = ContentAlignment.TopCenter
 		' 
 		' SetupShares
 		' 
@@ -156,6 +179,8 @@ Partial Class SetupShares
 		BackColor = SystemColors.Window
 		CancelButton = btnCancel
 		ClientSize = New Size(573, 372)
+		Controls.Add(Label1)
+		Controls.Add(btnDelete)
 		Controls.Add(lblDblClickInstructions)
 		Controls.Add(btnAdd)
 		Controls.Add(btnCancel)
@@ -185,4 +210,6 @@ Partial Class SetupShares
 	Friend WithEvents lblDblClickInstructions As Label
 	Friend WithEvents cHead1 As ColumnHeader
 	Friend WithEvents cHead2 As ColumnHeader
+	Friend WithEvents btnDelete As Button
+	Friend WithEvents Label1 As Label
 End Class
