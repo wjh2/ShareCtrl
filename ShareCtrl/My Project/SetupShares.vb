@@ -1,6 +1,7 @@
 ﻿Imports System.IO
 Imports System.Management
 Imports System.Windows.Forms.VisualStyles.VisualStyleElement
+Imports System.Xml
 Public Class SetupShares
 	Private _selectedFolderPath As String
 	Public Sub New()
@@ -154,8 +155,8 @@ Public Class SetupShares
 			item.Selected = False
 		Next
 		PopulateList()
-		'Me.Close()
-	End Sub
+'Me.Close()
+End Sub
 	Private sub HashPaths()
 		' Create a HashSet to track unique paths
 		Dim uniquePaths As New HashSet(Of String)(StringComparer.OrdinalIgnoreCase)
@@ -191,6 +192,7 @@ Public Class SetupShares
 		For Each path As String In pathsToDelete
 			For Each item As ListViewItem In lviewShares.Items
 				If item.SubItems(1).Text.Equals(path, StringComparison.OrdinalIgnoreCase) Then
+					UnShareDirectory(path)
 					lviewShares.Items.Remove(item)
 					Exit For
 				End If

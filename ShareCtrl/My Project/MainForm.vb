@@ -96,7 +96,7 @@ Module Program ' this Module was added to get around the visual studio req for t
 		' Refresh the application to apply the new visual style
 		Application.DoEvents()
 	End Sub
-Public Sub SetAttrib(exsta As String, path As String)
+	Public Sub SetAttrib(exsta As String, path As String)
 	If exsta.ToUpper() = "ON" Then
 		' Remove the Hidden and System attributes
 		Dim attributes As FileAttributes = File.GetAttributes(path)
@@ -114,8 +114,8 @@ Public Sub SetAttrib(exsta As String, path As String)
 		' Share the directory
 		ShareDirectory(path)
 	End If
-End Sub
-Public Sub ShareDirectory(path As String)
+	End Sub
+	Public Sub ShareDirectory(path As String)
 	Try
 		' Create the SHARE_INFO_2 structure
 		Dim shareInfo As New SHARE_INFO_2()
@@ -143,8 +143,8 @@ Public Sub ShareDirectory(path As String)
 	Catch ex As Exception
 		MessageBox.Show("Error sharing directory: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
 	End Try
-End Sub
-	Private Sub UnshareDirectory(path As String)
+	End Sub
+	Public Sub UnshareDirectory(path As String)
 	 Try
 		' Create a ManagementObjectSearcher to find the share
 			Dim searcher As New ManagementObjectSearcher("SELECT * FROM Win32_Share WHERE Path = '" & path.Replace("\", "\\") & "'")
