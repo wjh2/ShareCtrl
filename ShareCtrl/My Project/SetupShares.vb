@@ -43,7 +43,6 @@ Public Class SetupShares
 					MessageBox.Show($"The directory '{path}' does not exist.", "Directory Not Found", MessageBoxButtons.OK, MessageBoxIcon.Warning)
 				End If
 			Next
-			'btnAdd_Click()
 		End If
 	End Sub
 	Private Sub btnBrowse_Click(sender As Object, e As EventArgs) Handles btnBrowse.Click
@@ -149,9 +148,13 @@ Public Class SetupShares
 			Next
 			' Save the settings to the user.config file
 			My.Settings.Save()
-			PopulateList()
 		End If
-		Me.Close()
+		'lviewShares.SelectedIndices.Clear()
+		For Each item As ListViewItem In lviewShares.Items
+			item.Selected = False
+		Next
+		PopulateList()
+		'Me.Close()
 	End Sub
 	Private sub HashPaths()
 		' Create a HashSet to track unique paths
@@ -193,6 +196,21 @@ Public Class SetupShares
 				End If
 			Next
 		Next
+		If My.Settings.SharePaths.Count > 0 Then
+			' Clear the existing SharePaths setting
+			My.Settings.SharePaths.Clear()
+		End If
+		' No existing shares. Now add the current ListView items to the settings
+		For Each item As ListViewItem In lviewShares.Items
+			My.Settings.SharePaths.Add(item.SubItems(1).Text)
+		Next
+		' Save the settings to the user.config file
+		My.Settings.Save()
+		PopulateList()
+		For Each item As ListViewItem In lviewShares.Items
+			item.Selected = False
+		Next
+		'lviewShares.SelectedIndices.Clear()
 	End Sub
 	Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
 		' Close the SetupShares form

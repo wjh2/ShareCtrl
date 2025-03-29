@@ -52,8 +52,8 @@ Partial Class SetupShares
 		btnBrowse.BackColor = SystemColors.ButtonFace
 		btnBrowse.FlatAppearance.BorderSize = 2
 		btnBrowse.FlatStyle = FlatStyle.Popup
-		btnBrowse.Font = New Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-		btnBrowse.Location = New Point(50, 21)
+		btnBrowse.Font = New Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+		btnBrowse.Location = New Point(50, 229)
 		btnBrowse.Name = "btnBrowse"
 		btnBrowse.Size = New Size(156, 53)
 		btnBrowse.TabIndex = 1
@@ -68,7 +68,7 @@ Partial Class SetupShares
 		' PBoxSVS
 		' 
 		PBoxSVS.Image = CType(resources.GetObject("PBoxSVS.Image"), Image)
-		PBoxSVS.Location = New Point(23, 85)
+		PBoxSVS.Location = New Point(23, 21)
 		PBoxSVS.Name = "PBoxSVS"
 		PBoxSVS.Size = New Size(193, 197)
 		PBoxSVS.SizeMode = PictureBoxSizeMode.CenterImage
@@ -148,7 +148,7 @@ Partial Class SetupShares
 		lblDblClickInstructions.Name = "lblDblClickInstructions"
 		lblDblClickInstructions.Size = New Size(330, 25)
 		lblDblClickInstructions.TabIndex = 8
-		lblDblClickInstructions.Text = "Select Item(s) - Hit Save or Delete to Update the List"
+		lblDblClickInstructions.Text = "Select Item(s) - Delete or Save to update Status"
 		lblDblClickInstructions.TextAlign = ContentAlignment.TopCenter
 		' 
 		' btnDelete
