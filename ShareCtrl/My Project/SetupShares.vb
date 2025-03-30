@@ -63,9 +63,9 @@ Public Class SetupShares
 			lviewShares.View = View.Details
 			lviewShares.Columns.Clear()
 			lviewShares.Columns.Add("Status", 84)
-			lviewShares.Columns.Add("Share Path", 200)
+			lviewShares.Columns.Add("Share Path", 220)
 			If tboxSharePath.Text <> "" Then
-				lvItem = New ListViewItem("OFF")
+				lvItem = New ListViewItem("NORM")
 				lvItem.SubItems.Add(newShare)
 				lviewShares.Items.Add(lvItem)
 				tboxSharePath.Clear()
@@ -107,9 +107,9 @@ Public Class SetupShares
 					item.Text = "OFF"
 				Else
 					item.Text = "ON"
-					'share the directory here if it is not already shared
+					'if it is not already shared its a normal directory not in the user.config file
 					If Not isShared Then
-						ShareDirectory(ckPath)
+						item.Text = "NORM"
 					End If
 				End If
 			Else
@@ -135,6 +135,11 @@ Public Class SetupShares
 				' Get the "exsta" value from the first column and the "path" value from the second column
 				Dim exsta As String = item.SubItems(0).Text
 				Dim path As String = item.SubItems(1).Text
+				If exsta = "NORM" Then
+					item.SubItems(0).Text = "OFF"
+					exsta = "OFF"
+					ShareDirectory(path)
+				End if
 				' Call the SetAttrib method with the appropriate values
 				SetAttrib(exsta, path)
 			End If

@@ -97,23 +97,33 @@ Module Program ' this Module was added to get around the visual studio req for t
 		Application.DoEvents()
 	End Sub
 	Public Sub SetAttrib(exsta As String, path As String)
-	If exsta.ToUpper() = "ON" Then
-		' Remove the Hidden and System attributes
-		Dim attributes As FileAttributes = File.GetAttributes(path)
-		attributes = attributes Or FileAttributes.Hidden Or FileAttributes.System
-		File.SetAttributes(path, attributes)
-		Debug.WriteLine($"Attributes set to Hidden and System for path: {path}")
-		' Unshare the directory
-		UnshareDirectory(path)
-	ElseIf exsta.ToUpper() = "OFF" Then
-		' Set the directory attributes to Hidden and System
-		Dim attributes As FileAttributes = File.GetAttributes(path)
-		attributes = attributes And Not FileAttributes.Hidden And Not FileAttributes.System
-		File.SetAttributes(path, attributes)
-		Debug.WriteLine($"Attributes removed for path: {path}")
-		' Share the directory
-		ShareDirectory(path)
-	End If
+		Select Case exsta.ToUpper()
+			Case "ON"
+				' Remove the Hidden and System attributes
+				Dim attributes As FileAttributes = File.GetAttributes(path)
+				attributes = attributes Or FileAttributes.Hidden Or FileAttributes.System
+				File.SetAttributes(path, attributes)
+				Debug.WriteLine($"Attributes set to Hidden and System for path: {path}")
+				' Unshare the directory
+				UnshareDirectory(path)
+			Case "OFF"
+				' Set the directory attributes to Hidden and System
+				Dim attributes As FileAttributes = File.GetAttributes(path)
+				attributes = attributes And Not FileAttributes.Hidden And Not FileAttributes.System
+				File.SetAttributes(path, attributes)
+				Debug.WriteLine($"Attributes removed for path: {path}")
+				' Share the directory
+				ShareDirectory(path)
+			Case "NORM"
+				' Set the directory attributes to Hidden and System
+				Dim attributes As FileAttributes = File.GetAttributes(path)
+				attributes = attributes And Not FileAttributes.Hidden And Not FileAttributes.System
+				File.SetAttributes(path, attributes)
+				Debug.WriteLine($"Attributes set to Normal for path: {path}")
+				' Share the directory
+				ShareDirectory(path)
+		End Select
+
 	End Sub
 	Public Sub ShareDirectory(path As String)
 	Try

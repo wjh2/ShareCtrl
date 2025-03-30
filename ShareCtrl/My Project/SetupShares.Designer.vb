@@ -169,7 +169,7 @@ Partial Class SetupShares
 		Label1.Name = "Label1"
 		Label1.Size = New Size(538, 25)
 		Label1.TabIndex = 10
-		Label1.Text = "NOTE: On = Shared and Visible,     Off = Not Shared and Invisible"
+		Label1.Text = "NOTE:  On = Shared and Visible,     Off = Not Shared and Invisible"
 		Label1.TextAlign = ContentAlignment.TopCenter
 		' 
 		' SetupShares
