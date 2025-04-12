@@ -108,10 +108,10 @@ Partial Class SetupForm
 		' 
 		' btnInfo
 		' 
-		btnInfo.Font = New Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+		btnInfo.Font = New Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
 		btnInfo.Location = New Point(17, 122)
 		btnInfo.Name = "btnInfo"
-		btnInfo.Size = New Size(45, 32)
+		btnInfo.Size = New Size(61, 34)
 		btnInfo.TabIndex = 9
 		btnInfo.Text = "Info"
 		btnInfo.UseVisualStyleBackColor = True
@@ -121,6 +121,7 @@ Partial Class SetupForm
 		AcceptButton = btnSave
 		AutoScaleDimensions = New SizeF(11F, 25F)
 		AutoScaleMode = AutoScaleMode.Font
+		AutoSize = True
 		CancelButton = btnCancel
 		ClientSize = New Size(751, 180)
 		Controls.Add(btnInfo)
@@ -133,6 +134,7 @@ Partial Class SetupForm
 		Controls.Add(txtSetPswd)
 		Controls.Add(lblSetPswd)
 		Name = "SetupForm"
+		StartPosition = FormStartPosition.CenterScreen
 		Text = "SetupForm"
 		CType(PBoxShowPswd, ComponentModel.ISupportInitialize).EndInit()
 		ResumeLayout(False)

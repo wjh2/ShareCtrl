@@ -25,111 +25,85 @@ Partial Class OnOffForm
 		Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(OnOffForm))
 		PBoxOff = New PictureBox()
 		PBoxOn = New PictureBox()
-		NumericUpDown1 = New NumericUpDown()
 		lblCurrentState = New Label()
-		btnAccept = New Button()
 		btnCancel = New Button()
-		ckboxShowShares = New CheckBox()
 		CType(PBoxOff, ComponentModel.ISupportInitialize).BeginInit()
 		CType(PBoxOn, ComponentModel.ISupportInitialize).BeginInit()
-		CType(NumericUpDown1, ComponentModel.ISupportInitialize).BeginInit()
 		SuspendLayout()
 		' 
 		' PBoxOff
 		' 
+		PBoxOff.Anchor = AnchorStyles.Top
 		PBoxOff.Image = CType(resources.GetObject("PBoxOff.Image"), Image)
-		PBoxOff.Location = New Point(0, 0)
+		PBoxOff.Location = New Point(2, 0)
+		PBoxOff.Margin = New Padding(0)
 		PBoxOff.Name = "PBoxOff"
-		PBoxOff.Size = New Size(210, 340)
+		PBoxOff.Size = New Size(105, 171)
+		PBoxOff.SizeMode = PictureBoxSizeMode.AutoSize
 		PBoxOff.TabIndex = 0
 		PBoxOff.TabStop = False
 		' 
 		' PBoxOn
 		' 
+		PBoxOn.Anchor = AnchorStyles.Top
 		PBoxOn.Image = CType(resources.GetObject("PBoxOn.Image"), Image)
-		PBoxOn.Location = New Point(0, 0)
+		PBoxOn.Location = New Point(2, 0)
+		PBoxOn.Margin = New Padding(0)
 		PBoxOn.Name = "PBoxOn"
-		PBoxOn.Size = New Size(210, 340)
+		PBoxOn.Size = New Size(105, 171)
+		PBoxOn.SizeMode = PictureBoxSizeMode.AutoSize
 		PBoxOn.TabIndex = 1
 		PBoxOn.TabStop = False
 		' 
-		' NumericUpDown1
-		' 
-		NumericUpDown1.Location = New Point(1129, 408)
-		NumericUpDown1.Name = "NumericUpDown1"
-		NumericUpDown1.Size = New Size(111, 33)
-		NumericUpDown1.TabIndex = 2
-		' 
 		' lblCurrentState
 		' 
-		lblCurrentState.AutoSize = True
+		lblCurrentState.BackColor = SystemColors.Info
 		lblCurrentState.Font = New Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-		lblCurrentState.Location = New Point(7, 356)
+		lblCurrentState.Location = New Point(0, 171)
+		lblCurrentState.Margin = New Padding(0)
 		lblCurrentState.Name = "lblCurrentState"
-		lblCurrentState.Size = New Size(193, 21)
+		lblCurrentState.Size = New Size(105, 74)
 		lblCurrentState.TabIndex = 3
 		lblCurrentState.Text = "Shares are Off and Hidden"
-		' 
-		' btnAccept
-		' 
-		btnAccept.DialogResult = DialogResult.OK
-		btnAccept.Location = New Point(119, 442)
-		btnAccept.Name = "btnAccept"
-		btnAccept.Size = New Size(79, 34)
-		btnAccept.TabIndex = 4
-		btnAccept.Text = "Accept"
-		btnAccept.UseVisualStyleBackColor = True
+		lblCurrentState.TextAlign = ContentAlignment.TopCenter
 		' 
 		' btnCancel
 		' 
 		btnCancel.DialogResult = DialogResult.Cancel
-		btnCancel.Location = New Point(12, 380)
+		btnCancel.Location = New Point(0, 248)
+		btnCancel.Margin = New Padding(0)
 		btnCancel.Name = "btnCancel"
-		btnCancel.Size = New Size(186, 34)
+		btnCancel.Size = New Size(105, 34)
 		btnCancel.TabIndex = 5
 		btnCancel.Text = "Close"
 		btnCancel.UseVisualStyleBackColor = True
 		' 
-		' ckboxShowShares
-		' 
-		ckboxShowShares.AutoSize = True
-		ckboxShowShares.Location = New Point(16, 447)
-		ckboxShowShares.Name = "ckboxShowShares"
-		ckboxShowShares.Size = New Size(138, 29)
-		ckboxShowShares.TabIndex = 6
-		ckboxShowShares.Text = "Show Shares"
-		ckboxShowShares.UseVisualStyleBackColor = True
-		' 
 		' OnOffForm
 		' 
-		AcceptButton = btnAccept
 		AutoScaleMode = AutoScaleMode.None
 		AutoSizeMode = AutoSizeMode.GrowAndShrink
+		BackgroundImageLayout = ImageLayout.None
 		CancelButton = btnCancel
-		ClientSize = New Size(210, 424)
-		Controls.Add(ckboxShowShares)
-		Controls.Add(btnCancel)
-		Controls.Add(btnAccept)
-		Controls.Add(lblCurrentState)
-		Controls.Add(NumericUpDown1)
-		Controls.Add(PBoxOff)
+		ClientSize = New Size(106, 300)
 		Controls.Add(PBoxOn)
+		Controls.Add(PBoxOff)
+		Controls.Add(btnCancel)
+		Controls.Add(lblCurrentState)
 		FormBorderStyle = FormBorderStyle.None
+		MaximumSize = New Size(106, 300)
 		Name = "OnOffForm"
+		ShowIcon = False
+		StartPosition = FormStartPosition.Manual
 		CType(PBoxOff, ComponentModel.ISupportInitialize).EndInit()
 		CType(PBoxOn, ComponentModel.ISupportInitialize).EndInit()
-		CType(NumericUpDown1, ComponentModel.ISupportInitialize).EndInit()
 		ResumeLayout(False)
 		PerformLayout()
 	End Sub
 
 	Friend WithEvents PBoxOff As System.Windows.Forms.PictureBox
 	Friend WithEvents PBoxOn As System.Windows.Forms.PictureBox
-	Friend WithEvents NumericUpDown1 As NumericUpDown
 	Friend WithEvents lblCurrentState As Label
-	Friend WithEvents btnAccept As Button
 	Friend WithEvents btnCancel As Button
-	Friend WithEvents ckboxShowShares As CheckBox
 	Public Shared Property off_pic As System.Drawing.Image
 	Public Shared Property on_pic As System.Drawing.Image
 End Class

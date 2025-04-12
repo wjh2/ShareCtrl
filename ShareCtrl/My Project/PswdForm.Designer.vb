@@ -101,6 +101,7 @@ Partial Class PswdForm
 		AcceptButton = btnOk
 		AutoScaleDimensions = New SizeF(11F, 25F)
 		AutoScaleMode = AutoScaleMode.Font
+		AutoSize = True
 		CancelButton = btnCancel
 		ClientSize = New Size(579, 139)
 		Controls.Add(btnSettings)
@@ -112,7 +113,8 @@ Partial Class PswdForm
 		Controls.Add(lblPword)
 		FormBorderStyle = FormBorderStyle.Fixed3D
 		Name = "PswdForm"
-		Text = "Share Contol Debugger"
+		StartPosition = FormStartPosition.CenterScreen
+		Text = "Share Control"
 		CType(pboxShowPswd, ComponentModel.ISupportInitialize).EndInit()
 		ResumeLayout(False)
 		PerformLayout()

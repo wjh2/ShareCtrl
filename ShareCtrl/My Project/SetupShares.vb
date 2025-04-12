@@ -198,6 +198,9 @@ End Sub
 			For Each item As ListViewItem In lviewShares.Items
 				If item.SubItems(1).Text.Equals(path, StringComparison.OrdinalIgnoreCase) Then
 					UnShareDirectory(path)
+					Dim attributes As FileAttributes = File.GetAttributes(path)
+					attributes = attributes And Not FileAttributes.Hidden And Not FileAttributes.System
+					File.SetAttributes(path, attributes)
 					lviewShares.Items.Remove(item)
 					Exit For
 				End If

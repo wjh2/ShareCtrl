@@ -68,9 +68,10 @@ Partial Class SetupShares
 		' PBoxSVS
 		' 
 		PBoxSVS.Image = CType(resources.GetObject("PBoxSVS.Image"), Image)
-		PBoxSVS.Location = New Point(23, 21)
+		PBoxSVS.Location = New Point(23, 26)
+		PBoxSVS.Margin = New Padding(3, 5, 3, 0)
 		PBoxSVS.Name = "PBoxSVS"
-		PBoxSVS.Size = New Size(193, 197)
+		PBoxSVS.Size = New Size(193, 226)
 		PBoxSVS.SizeMode = PictureBoxSizeMode.CenterImage
 		PBoxSVS.TabIndex = 2
 		PBoxSVS.TabStop = False
@@ -124,7 +125,7 @@ Partial Class SetupShares
 		btnCancel.Name = "btnCancel"
 		btnCancel.Size = New Size(95, 34)
 		btnCancel.TabIndex = 6
-		btnCancel.Text = "CANCEL"
+		btnCancel.Text = "QUIT"
 		btnCancel.TextAlign = ContentAlignment.TopCenter
 		btnCancel.UseVisualStyleBackColor = False
 		' 
@@ -143,13 +144,16 @@ Partial Class SetupShares
 		' 
 		' lblDblClickInstructions
 		' 
+		lblDblClickInstructions.AutoSize = True
 		lblDblClickInstructions.Font = New Font("Arial Narrow", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
 		lblDblClickInstructions.Location = New Point(231, 221)
 		lblDblClickInstructions.Name = "lblDblClickInstructions"
-		lblDblClickInstructions.Size = New Size(330, 25)
+		lblDblClickInstructions.Size = New Size(293, 24)
 		lblDblClickInstructions.TabIndex = 8
 		lblDblClickInstructions.Text = "Select Item(s) - Delete or Save to update Status"
 		lblDblClickInstructions.TextAlign = ContentAlignment.TopCenter
+		lblDblClickInstructions.UseCompatibleTextRendering = True
+		lblDblClickInstructions.UseMnemonic = False
 		' 
 		' btnDelete
 		' 
@@ -164,10 +168,11 @@ Partial Class SetupShares
 		' 
 		' Label1
 		' 
+		Label1.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left
 		Label1.Font = New Font("Arial Narrow", 12F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-		Label1.Location = New Point(23, 348)
+		Label1.Location = New Point(0, 348)
 		Label1.Name = "Label1"
-		Label1.Size = New Size(538, 25)
+		Label1.Size = New Size(578, 25)
 		Label1.TabIndex = 10
 		Label1.Text = "NOTE:  On = Shared and Visible,     Off = Not Shared and Invisible"
 		Label1.TextAlign = ContentAlignment.TopCenter
@@ -176,9 +181,11 @@ Partial Class SetupShares
 		' 
 		AutoScaleDimensions = New SizeF(11F, 25F)
 		AutoScaleMode = AutoScaleMode.Font
+		AutoSize = True
 		BackColor = SystemColors.Window
 		CancelButton = btnCancel
 		ClientSize = New Size(573, 372)
+		Controls.Add(btnBrowse)
 		Controls.Add(Label1)
 		Controls.Add(btnDelete)
 		Controls.Add(lblDblClickInstructions)
@@ -188,7 +195,6 @@ Partial Class SetupShares
 		Controls.Add(lblShareList)
 		Controls.Add(lviewShares)
 		Controls.Add(PBoxSVS)
-		Controls.Add(btnBrowse)
 		Controls.Add(tboxSharePath)
 		Name = "SetupShares"
 		StartPosition = FormStartPosition.CenterScreen
